@@ -2,42 +2,30 @@ package springproject.Service;
 
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import springproject.Model.Component;
+import springproject.Repository.ComponentRepository;
 
 import java.util.List;
 
 /**
  * Created by mohammad on 6/28/2017.
  */
-public class ComponentCatalogue implements Catalogue<Component>{
 
-    private static ComponentCatalogue instance;
+@Service
+public class ComponentCatalogue {
 
-    private ComponentCatalogue(){
+    @Autowired
+    ComponentRepository componentRepository;
 
+    public Iterable<Component> findAll(){
+        return componentRepository.findAll();
     }
 
-    public ComponentCatalogue getInstance(){
-        if(ComponentCatalogue.instance == null){
-            ComponentCatalogue.instance = new ComponentCatalogue();
-        }
-        return ComponentCatalogue.instance;
+    public void save(Component component){
+        componentRepository.save(component);
     }
 
-    private List<Component> components;
 
-    @Override
-    public void add(Component component) {
-        this.components.add(component);
-    }
-
-    @Override
-    public void delete(Component component) {
-        this.components.remove(component);
-    }
-
-    @Override
-    public List<Component> getAll() {
-        return this.components;
-    }
 }

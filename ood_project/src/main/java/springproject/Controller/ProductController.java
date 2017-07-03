@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import springproject.Model.*;
 import springproject.Repository.*;
+import springproject.Service.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,7 +25,7 @@ public class ProductController {
     /*** comment ***/
 
     @Autowired
-    CommentRepository commentRepository;
+    CommentCatalogue commentCatalogue;
 
 
 
@@ -39,11 +40,11 @@ public class ProductController {
                                        @RequestParam("date") String date,
                                        @RequestParam("message") String message){
         System.out.println("product_id:"+product_id);
-        Product product = productRepository.findOne(product_id);
+        Product product = productCatalogue.findOne(product_id);
         Comment comment = new Comment(new Date(), message);
-        commentRepository.save(comment);
+        commentCatalogue.save(comment);
         product.getComments().add(comment);
-        productRepository.save(product);
+        productCatalogue.save(product);
         return "homepage";
     }
 
@@ -60,11 +61,11 @@ public class ProductController {
     /*** product ***/
 
     @Autowired
-    ProductRepository productRepository;
+    ProductCatalogue productCatalogue;
 
     @RequestMapping("/showProducts")
     public String showProducts(Model model){
-        List<Product> products = (List<Product>)productRepository.findAll();
+        List<Product> products = (List<Product>)productCatalogue.findAll();
         model.addAttribute("products", products);
         return "ShowProducts";
     }
@@ -83,10 +84,10 @@ public class ProductController {
         product.getProductionSteps();
         for(String id:productionStepsId.split(" ")){
             if(id!="") {
-                product.getProductionSteps().add(productionStepRepository.findOne(Integer.parseInt(id)));
+                product.getProductionSteps().add(productionStepCatalogue.findOne(Integer.parseInt(id)));
             }
         }
-        productRepository.save(product);
+        productCatalogue.save(product);
         return "homepage";
     }
 
@@ -107,7 +108,7 @@ public class ProductController {
 
     @RequestMapping("/submit/advanceSearch/form")
     public String submitAdvanceSearchProduct(@RequestParam("productName") String productName, Model model){
-        List<Product> products = (List<Product>) productRepository.findAll();
+        List<Product> products = (List<Product>) productCatalogue.findAll();
         List<Product> relatedProducts = new ArrayList<>();
         Product searchedProduct = null;
         for(Product product:products){
@@ -131,7 +132,7 @@ public class ProductController {
     /*** production step ***/
 
     @Autowired
-    ProductionStepRepository productionStepRepository;
+    ProductionStepCatalogue productionStepCatalogue;
 
     @RequestMapping("/add/form/productionStep")
     public String addFormProductionStep(){
@@ -146,7 +147,7 @@ public class ProductController {
         productionStep.setCost(cost);
         productionStep.setPreCondition(preCondition);
         productionStep.setPostCondition(postCondition);
-        productionStepRepository.save(productionStep);
+        productionStepCatalogue.save(productionStep);
         return "homepage";
     }
 
@@ -163,7 +164,7 @@ public class ProductController {
     /*** component ***/
 
     @Autowired
-    ComponentRepository componentRepository;
+    ComponentCatalogue componentCatalogue;
 
     @RequestMapping("/add/form/component")
     public String addFormComponent(){
@@ -180,7 +181,7 @@ public class ProductController {
         component.setDescription(description);
         component.setName(name);
         component.setPrice(price);
-        componentRepository.save(component);
+        componentCatalogue.save(component);
         return "homepage";
     }
 
@@ -198,7 +199,7 @@ public class ProductController {
     /*** product order ***/
 
     @Autowired
-    ProductOrderRepository productOrderRepository;
+    ProductOrderCatalogue productOrderCatalogue;
 
     @RequestMapping("/add/form/productOrder")
     public String addFormProductOrder(){
@@ -212,14 +213,14 @@ public class ProductController {
                                          @RequestParam("products") String productsName,
                                          @RequestParam("requirements") String requirementsName){
         ProductOrder order = new ProductOrder(totalCost, new Date());
-        for(Product product:(List<Product>) productRepository.findAll()){
+        for(Product product:(List<Product>) productCatalogue.findAll()){
             for(String productName:productsName.split(" ")){
                 if(productName != "" && productName.equals(product.getName())){
                     order.getProducts().add(product);
                 }
             }
         }
-        productOrderRepository.save(order);
+        productOrderCatalogue.save(order);
         return "homepage";
     }
 

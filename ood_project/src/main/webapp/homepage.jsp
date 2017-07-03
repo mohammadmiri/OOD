@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>homepage</title>
+    <link href="/src/main/resources/static/homepage.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 

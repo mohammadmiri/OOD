@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import springproject.Model.*;
 import springproject.Repository.CustomerRepository;
 import springproject.Repository.EmployeeRepository;
+import springproject.Service.CustomerCatalogue;
+import springproject.Service.EmployeeCatalogue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +24,7 @@ public class UserController {
     /*** employee ***/
 
     @Autowired
-    EmployeeRepository employeeRepository;
+    EmployeeCatalogue employeeCatalogue;
 
     @RequestMapping("/add/form/employee")
     public String addFormEmployee(){
@@ -45,7 +47,7 @@ public class UserController {
             case "CustomerRelationshipManager":roleVar=Role.Warehouse; break;
         }
         employee.setRole(roleVar);
-        employeeRepository.save(employee);
+        employeeCatalogue.save(employee);
         return "homepage";
     }
 
@@ -60,12 +62,12 @@ public class UserController {
                                            @RequestParam("password") String password,
                                            @RequestParam("firstName") String firstName,
                                            @RequestParam("lastName") String lastName){
-        Employee employee = employeeRepository.findOne(id);
+        Employee employee = employeeCatalogue.findOne(id);
         employee.setUsername(username);
         employee.setPassword(password);
         employee.setFirstName(firstName);
         employee.setLastName(lastName);
-        employeeRepository.save(employee);
+        employeeCatalogue.save(employee);
         return "homepage";
     }
 
@@ -75,7 +77,7 @@ public class UserController {
     /*** customer ***/
 
     @Autowired
-    CustomerRepository customerRepository;
+    CustomerCatalogue customerCatalogue;
 
     @RequestMapping("/signup")
     public String addFormCustomer(){
@@ -89,7 +91,7 @@ public class UserController {
                                         @RequestParam("firstName") String firstName,
                                         @RequestParam("lastName") String lastName){
         Customer customer = new Customer(username, password, firstName, lastName);
-        customerRepository.save(customer);
+        customerCatalogue.save(customer);
         return "homepage";
     }
 
@@ -104,12 +106,12 @@ public class UserController {
                                            @RequestParam("password") String password,
                                            @RequestParam("firstName") String firstName,
                                            @RequestParam("lastName") String lastName){
-        Customer customer = customerRepository.findOne(id);
+        Customer customer = customerCatalogue.findOne(id);
         customer.setUsername(username);
         customer.setPassword(password);
         customer.setFirstName(firstName);
         customer.setLastName(lastName);
-        customerRepository.save(customer);
+        customerCatalogue.save(customer);
         return "homepage";
     }
 

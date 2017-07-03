@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import springproject.Model.Warehouse;
 import springproject.Repository.WarehouseRepository;
+import springproject.Service.WarehouseCatalogue;
 
 /**
  * Created by mohammad on 7/2/2017.
@@ -18,7 +19,7 @@ public class StorableController {
     /*** ware house ***/
 
     @Autowired
-    WarehouseRepository warehouseRepository;
+    WarehouseCatalogue warehouseCatalogue;
 
     @RequestMapping("/add/form/warehouse")
     public String addFormWarehouse(){
@@ -29,7 +30,7 @@ public class StorableController {
     public String submitAddFormWarehouse(@RequestParam("code") Integer code,
                                          @RequestParam("name") String name){
         Warehouse warehouse = new Warehouse(code, name);
-        warehouseRepository.save(warehouse);
+        warehouseCatalogue.save(warehouse);
         return "homepage";
     }
 
@@ -42,8 +43,8 @@ public class StorableController {
     public String submitUpdateFormWarehouse(@PathVariable("id") Integer id,
                                             @RequestParam("code") Integer code,
                                             @RequestParam("name") String name){
-        Warehouse warehouse = warehouseRepository.findOne(id);
-        warehouseRepository.save(warehouse);
+        Warehouse warehouse = warehouseCatalogue.findOne(id);
+        warehouseCatalogue.save(warehouse);
         return "homepage";
     }
 

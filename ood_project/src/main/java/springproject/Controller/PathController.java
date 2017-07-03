@@ -11,6 +11,9 @@ import springproject.Model.SupplyChain;
 import springproject.Repository.SaleChainRepository;
 import springproject.Repository.SourceRepository;
 import springproject.Repository.SupplyChainRepository;
+import springproject.Service.SaleChainCatalogue;
+import springproject.Service.SourceCatalogue;
+import springproject.Service.SupplyChainCatalogue;
 
 import java.util.Date;
 
@@ -24,7 +27,7 @@ public class PathController {
     /*** sale path ***/
 
     @Autowired
-    SaleChainRepository saleChainRepository;
+    SaleChainCatalogue saleChainCatalogue;
 
     @RequestMapping("/add/salePath")
     public String addFormSalePath(){
@@ -36,7 +39,7 @@ public class PathController {
                                         @RequestParam("time") Integer time,
                                         @RequestParam("description") String description){
         SaleChain saleChain = new SaleChain(cost, time, description);
-        saleChainRepository.save(saleChain);
+        saleChainCatalogue.save(saleChain);
         return "homepage";
     }
 
@@ -50,15 +53,15 @@ public class PathController {
                                            @RequestParam("cost") Integer cost,
                                            @RequestParam("time") Integer time,
                                            @RequestParam("description") String description){
-        SaleChain saleChain = saleChainRepository.findOne(id);
-        saleChainRepository.save(saleChain);
+        SaleChain saleChain = saleChainCatalogue.findOne(id);
+        saleChainCatalogue.save(saleChain);
         return "homepage";
     }
 
     /*** supply path ***/
 
     @Autowired
-    SupplyChainRepository supplyChainRepository;
+    SupplyChainCatalogue supplyChainCatalogue;
 
     @RequestMapping("/add/form/supplyPath")
     public String addFormSupplyPath(){
@@ -70,7 +73,7 @@ public class PathController {
                                         @RequestParam("time") Integer time,
                                         @RequestParam("description") String description){
         SupplyChain supplyChain = new SupplyChain(cost, time, description);
-        supplyChainRepository.save(supplyChain);
+        supplyChainCatalogue.save(supplyChain);
         return "homepage";
     }
 
@@ -84,15 +87,15 @@ public class PathController {
                                            @RequestParam("cost") Integer cost,
                                            @RequestParam("time") Integer time,
                                            @RequestParam("description") String description){
-        SupplyChain supplyChain = supplyChainRepository.findOne(id);
-        supplyChainRepository.save(supplyChain);
+        SupplyChain supplyChain = supplyChainCatalogue.findOne(id);
+        supplyChainCatalogue.save(supplyChain);
         return "homepage";
     }
 
     /*** source ***/
 
     @Autowired
-    SourceRepository sourceRepository;
+    SourceCatalogue sourceCatalogue;
 
     @RequestMapping("/add/form/source")
     public String addFormSource(){
@@ -103,7 +106,7 @@ public class PathController {
     public String submitAddFormSource(@RequestParam("name") String name,
                                       @RequestParam("address") String address){
         Source source = new Source(name, address);
-        sourceRepository.save(source);
+        sourceCatalogue.save(source);
         return "homepage";
     }
 
@@ -116,10 +119,10 @@ public class PathController {
     public String submitUpdateFormSource(@PathVariable("id") Integer id,
                                          @RequestParam("name") String name,
                                          @RequestParam("address") String address){
-        Source source = sourceRepository.findOne(id);
+        Source source = sourceCatalogue.findOne(id);
         source.setAddress(address);
         source.setName(name);
-        sourceRepository.save(source);
+        sourceCatalogue.save(source);
         return "homepage";
     }
 
