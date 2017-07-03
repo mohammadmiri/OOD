@@ -21,6 +21,11 @@ public class Warehouse {
     @Column
     private String name;
 
+    public Warehouse(Integer code, String name) {
+        this.code = code;
+        this.name = name;
+    }
+
     @OneToMany
     private List<StoreData> storeData = new ArrayList<>();
 

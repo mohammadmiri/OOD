@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form method="POST" action="/user/testadd" modelAttribute="employee">
+<form method="POST" action="/user/submit/signup">
     <table>
         <tr>
             <td><label>username</label></td>
@@ -18,11 +18,11 @@
         </tr>
         <tr>
             <td><label>firstname</label></td>
-            <td><input name="firstname"/></td>
+            <td><input name="firstName"/></td>
         </tr>
         <tr>
             <td><label>lastname</label></td>
-            <td><input name="lastname"/></td>
+            <td><input name="lastName"/></td>
         </tr>
         <tr>
             <td><input type="submit" value="Submit"/></td>

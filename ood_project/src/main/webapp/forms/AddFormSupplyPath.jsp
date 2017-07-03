@@ -6,15 +6,19 @@
 </head>
 <body>
 
-<form method="POST" action="/product/submit/add/form/comment/${product_id}">
+<form method="POST" action="/path/submit/add/form/supplyPath">
     <table>
         <tr>
-            <td><label>message</label></td>
-            <td><input name="message"/></td>
+            <td><label>time</label></td>
+            <td><input name="time"/></td>
         </tr>
         <tr>
-            <td><label>date</label></td>
-            <td><input name="date"/></td>
+            <td><label>cost</label></td>
+            <td><input name="cost"/></td>
+        </tr>
+        <tr>
+            <td><label>description</label></td>
+            <td><input name="description"/></td>
         </tr>
         <tr>
             <td><input type="submit" value="Submit"/></td>

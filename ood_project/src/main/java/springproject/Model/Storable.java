@@ -41,6 +41,15 @@ public class Storable {
     @ManyToMany
     private List<SupplyChain> supplyChains = new ArrayList<>();
 
+    public Storable(String name, Integer price, String description) {
+        this.name = name;
+        this.price = price;
+        this.description = description;
+    }
+
+    public Storable() {
+    }
+
     public List<StoreData> getStoreData() {
         return storeData;
     }

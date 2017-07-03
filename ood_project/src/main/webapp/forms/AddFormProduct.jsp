@@ -6,19 +6,23 @@
 </head>
 <body>
 
-<form method="POST" action="/user/testadd" modelAttribute="employee">
+<form method="POST" action="/product/submit/add/form/product">
     <table>
         <tr>
-            <td><label>time</label></td>
-            <td><input name="time"/></td>
+            <td><label>name</label></td>
+            <td><input name="name"/></td>
         </tr>
         <tr>
-            <td><label>cost</label></td>
-            <td><input name="cost"/></td>
+            <td><label>price</label></td>
+            <td><input name="price"/></td>
         </tr>
         <tr>
             <td><label>description</label></td>
             <td><input name="description"/></td>
+        </tr>
+        <tr>
+            <td><label>productionSteps</label></td>
+            <td><input name="productionSteps"/></td>
         </tr>
         <tr>
             <td><input type="submit" value="Submit"/></td>

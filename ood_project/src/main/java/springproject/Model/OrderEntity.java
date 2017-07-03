@@ -21,6 +21,14 @@ public class OrderEntity {
     @Column
     private Date date;
 
+    public OrderEntity(Integer totalCost, Date date) {
+        this.totalCost = totalCost;
+        this.date = date;
+    }
+
+    public OrderEntity() {
+    }
+
     public Integer getId() {
         return id;
     }

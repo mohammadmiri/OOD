@@ -23,6 +23,10 @@ public class Comment {
     @ManyToOne
     private Customer customer;
 
+    public Comment(Date date, String message) {
+        this.date = date;
+        this.message = message;
+    }
 
     public Integer getId() {
         return id;

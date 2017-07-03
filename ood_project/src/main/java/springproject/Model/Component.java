@@ -7,4 +7,11 @@ import javax.persistence.Entity;
  */
 @Entity
 public class Component extends Storable{
+
+    public Component(String name, Integer price, String description) {
+        super(name, price, description);
+    }
+
+    public Component() {
+    }
 }

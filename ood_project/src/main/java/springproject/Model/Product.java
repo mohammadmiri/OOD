@@ -22,6 +22,13 @@ public class Product extends Storable{
         return productionSteps;
     }
 
+    public Product(String name, Integer price, String description) {
+        super(name, price, description);
+    }
+
+    public Product() {
+    }
+
     public void setProductionSteps(List<ProductionStep> productionSteps) {
         this.productionSteps = productionSteps;
     }

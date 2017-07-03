@@ -1,18 +1,21 @@
 package springproject.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import springproject.Model.Customer;
-import springproject.Model.Employee;
-import springproject.Model.UserEntity;
+import springproject.Model.*;
 import springproject.Repository.CustomerRepository;
 import springproject.Repository.EmployeeRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mohammad on 7/2/2017.
  */
+@Controller
 @RequestMapping("/user")
 public class UserController {
 
@@ -21,17 +24,27 @@ public class UserController {
     @Autowired
     EmployeeRepository employeeRepository;
 
-    @RequestMapping("/add/employee")
+    @RequestMapping("/add/form/employee")
     public String addFormEmployee(){
-        return "addFormEmployee";
+        System.out.println("in add employee method");
+        return "forms/AddFormEmployee";
     }
 
-    @RequestMapping("/submit/add/employee")
+    @RequestMapping("/submit/add/form/employee")
     public String submitAddFormEmployee(@RequestParam("username") String username,
                                         @RequestParam("password") String password,
                                         @RequestParam("firstName") String firstName,
-                                        @RequestParam("lastName") String lastName){
+                                        @RequestParam("lastName") String lastName,
+                                        @RequestParam("role") String role){
         Employee employee = new Employee(username, password, firstName, lastName);
+        Role roleVar = null;
+        switch (role){
+            case "Manager":roleVar=Role.Manager;break;
+            case "OrderAndSupplyManager":roleVar=Role.OrderAndSupplyManager;break;
+            case "Warehouse":roleVar=Role.Warehouse; break;
+            case "CustomerRelationshipManager":roleVar=Role.Warehouse; break;
+        }
+        employee.setRole(roleVar);
         employeeRepository.save(employee);
         return "homepage";
     }
@@ -66,7 +79,8 @@ public class UserController {
 
     @RequestMapping("/signup")
     public String addFormCustomer(){
-        return "signup";
+        System.out.println("in signup method");
+        return "forms/signup";
     }
 
     @RequestMapping("/submit/signup")
@@ -84,7 +98,7 @@ public class UserController {
         return "editProfile";
     }
 
-    @RequestMapping("/edit/profile/{id}")
+    @RequestMapping("/submit/edit/profile/{id}")
     public String submitUpdateFormCustomer(@PathVariable("id") Integer id,
                                            @RequestParam("username") String username,
                                            @RequestParam("password") String password,

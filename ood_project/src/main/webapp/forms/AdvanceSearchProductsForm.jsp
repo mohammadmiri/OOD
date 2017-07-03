@@ -6,15 +6,11 @@
 </head>
 <body>
 
-<form method="POST" action="/user/testadd" modelAttribute="employee">
+<form method="POST" action="/product/submit/advanceSearch/form">
     <table>
         <tr>
-            <td><label>total cost</label></td>
-            <td><input name="totalCost"/></td>
-        </tr>
-        <tr>
-            <td><label>date</label></td>
-            <td><input name="date"/></td>
+            <td><label>name of product</label></td>
+            <td><input name="productName"/></td>
         </tr>
         <tr>
             <td><input type="submit" value="Submit"/></td>
@@ -24,18 +20,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
