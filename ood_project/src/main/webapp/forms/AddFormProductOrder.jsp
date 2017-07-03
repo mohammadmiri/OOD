@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form method="POST" action="/user/testadd" modelAttribute="employee">
+<form method="POST" action="/product/submit/add/form/productOrder">
     <table>
         <tr>
             <td><label>total cost</label></td>
@@ -15,6 +15,14 @@
         <tr>
             <td><label>date</label></td>
             <td><input name="date"/></td>
+        </tr>
+        <tr>
+            <td><label>products</label></td>
+            <td><input name="products"/></td>
+        </tr>
+        <tr>
+            <td><label>requirement</label></td>
+            <td><input name="requirements"/></td>
         </tr>
         <tr>
             <td><input type="submit" value="Submit"/></td>

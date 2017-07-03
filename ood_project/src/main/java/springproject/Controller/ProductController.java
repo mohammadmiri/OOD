@@ -214,7 +214,7 @@ public class ProductController {
                                          @RequestParam("requirements") String requirementsName){
         ProductOrder order = new ProductOrder(totalCost, new Date());
         for(Product product:(List<Product>) productCatalogue.findAll()){
-            for(String productName:productsName.split(" ")){
+            for(String productName:productsName.split(",")){
                 if(productName != "" && productName.equals(product.getName())){
                     order.getProducts().add(product);
                 }
