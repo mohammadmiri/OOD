@@ -26,13 +26,13 @@ public class UserController {
     @Autowired
     EmployeeCatalogue employeeCatalogue;
 
-    @RequestMapping("/add/form/employee")
+    @RequestMapping("/add_employee")
     public String addFormEmployee(){
         System.out.println("in add employee method");
         return "forms/AddFormEmployee";
     }
 
-    @RequestMapping("/submit/add/form/employee")
+    @RequestMapping("/submit/add_employee")
     public String submitAddFormEmployee(@RequestParam("username") String username,
                                         @RequestParam("password") String password,
                                         @RequestParam("firstName") String firstName,
@@ -51,12 +51,12 @@ public class UserController {
         return "homepage";
     }
 
-    @RequestMapping("/update/employee/{id}")
+    @RequestMapping("/update_employee/{id}")
     public String updateFormEmployee(@PathVariable("id") Integer id){
         return "updateEmployee";
     }
 
-    @RequestMapping("/submit/update/employee/{id}")
+    @RequestMapping("/submit/update_employee/{id}")
     public String submitUpdateFormEmployee(@PathVariable("id") Integer id,
                                            @RequestParam("username") String username,
                                            @RequestParam("password") String password,
@@ -95,12 +95,12 @@ public class UserController {
         return "homepage";
     }
 
-    @RequestMapping("/edit/profile/{id}")
+    @RequestMapping("/update_profile/{id}")
     public String updateFormCustomer(){
         return "editProfile";
     }
 
-    @RequestMapping("/submit/edit/profile/{id}")
+    @RequestMapping("/submit/update_profile/{id}")
     public String submitUpdateFormCustomer(@PathVariable("id") Integer id,
                                            @RequestParam("username") String username,
                                            @RequestParam("password") String password,

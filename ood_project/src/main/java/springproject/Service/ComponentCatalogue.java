@@ -27,5 +27,12 @@ public class ComponentCatalogue {
         componentRepository.save(component);
     }
 
+    public Component findOne(Integer id){
+        return componentRepository.findOne(id);
+    }
+
+    public void delete(Integer id){
+        componentRepository.delete(id);
+    }
 
 }

@@ -1,9 +1,5 @@
-{% extends 'ood_project/base.html' %}
-<!DOCTYPE html>
-{% load static %}
+<%@ include file="../base.jsp" %>
 
-
-{% block content %}
 
     <div class="container well-lg">
         <div class="row">
@@ -15,20 +11,28 @@
                             <input class="pull-left form-control" type="hidden" value="{{ id }}">
                         </div>
                     </div>
-                    <div class="row item">
+                    <div class="row">
                         <div class="col-md-offset-3 col-md-3">
-                            <div class="text-font pull-right">name:</div>
+                            <div class="text-font pull-right">TotalCost:</div>
                         </div>
                         <div class="col-md-3">
-                            <input class="pull-left form-control" type="text" name="name">
+                            <input class="pull-left form-control" type="number" name="totalCost">
                         </div>
                     </div>
                     <div class="row item">
                         <div class="col-md-offset-3 col-md-3">
-                            <div class="text-font pull-right">address:</div>
+                            <div class="text-font pull-right">Date:</div>
                         </div>
                         <div class="col-md-3">
-                            <input class="pull-left form-control" type="text" name="address">
+                            <input class="pull-left form-control" type="text" name="date">
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-md-offset-3 col-md-3">
+                            <div class="text-font pull-right">Number:</div>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="pull-left form-control" type="number" name="number">
                         </div>
                     </div>
                     <div class="row item">
@@ -39,4 +43,4 @@
         </div>
     </div>
 
-{% endblock %}
+

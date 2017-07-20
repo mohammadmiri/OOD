@@ -1,0 +1,66 @@
+{% extends 'ood_project/base.html' %}
+<!DOCTYPE html>
+{% load static %}
+
+
+{% block content %}
+
+    <div class="container well-lg">
+        <div class="row">
+            <div class="col-md-offset-3 col-md-6 bg-info main-container img-rounded">
+                <div class="row item">
+                    <div class="col-md-offset-3 col-md-3">
+                        <div class="text-font pull-right">Username:</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="">user name</div>
+                    </div>
+                </div>
+                <div class="row item">
+                    <div class="col-md-offset-3 col-md-3">
+                        <div class="text-font pull-right">Password:</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="">password</div>
+                    </div>
+                </div>
+                <div class="row item">
+                    <div class="col-md-offset-3 col-md-3">
+                        <div class="text-font pull-right">FirstName:</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="">first name</div>
+                    </div>
+                </div>
+                <div class="row item">
+                    <div class="col-md-offset-3 col-md-3">
+                        <div class="text-font pull-right">Lastname:</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="last name">last name</div>
+                    </div>
+                </div>
+                <div class="row item">
+                    <button type="submit" class="btn btn-success col-md-offset-5">submit</button>
+                </div>
+            </div>
+        </div>
+
+        {#    show   orders  #}
+        <div class="row item">
+            <div class="col-md-10 col-md-offset-1 container">
+                {% for item in items %}
+                    <div class="row item well-sm bg-info">
+                        <div class="col-md-2 col-md-offset-3 text-center">{{ item }}</div>
+                        <button class="btn btn-danger col-md-1 col-md-offset-3"><a href="#">delete</a></button>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+
+
+{% endblock %}
+

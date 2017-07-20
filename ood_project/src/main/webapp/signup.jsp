@@ -1,9 +1,6 @@
-{% extends 'ood_project/base.html' %}
-<!DOCTYPE html>
-{% load static %}
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-
-{% block content %}
+<%@ include file="base.jsp" %>
 
     <div class="container well-lg">
         <div class="row">
@@ -51,5 +48,3 @@
     </div>
 
 
-
-{% endblock %}

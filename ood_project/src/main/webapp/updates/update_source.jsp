@@ -1,9 +1,4 @@
-{% extends 'ood_project/base.html' %}
-<!DOCTYPE html>
-{% load static %}
-
-
-{% block content %}
+<%@ include file="../base.jsp" %>
 
     <div class="container well-lg">
         <div class="row">
@@ -38,5 +33,3 @@
             </div>
         </div>
     </div>
-
-{% endblock %}

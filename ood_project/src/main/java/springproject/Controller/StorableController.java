@@ -21,12 +21,12 @@ public class StorableController {
     @Autowired
     WarehouseCatalogue warehouseCatalogue;
 
-    @RequestMapping("/add/form/warehouse")
+    @RequestMapping("/add_warehouse")
     public String addFormWarehouse(){
         return "AddFormWareHouse";
     }
 
-    @RequestMapping("/submit/add/form/warehouse")
+    @RequestMapping("/submit/add_warehouse")
     public String submitAddFormWarehouse(@RequestParam("code") Integer code,
                                          @RequestParam("name") String name){
         Warehouse warehouse = new Warehouse(code, name);
@@ -34,12 +34,12 @@ public class StorableController {
         return "homepage";
     }
 
-    @RequestMapping("/update/form/warehouse/{id}")
+    @RequestMapping("/update_warehouse/{id}")
     public String updateFormWarehouse(@PathVariable("id") Integer id){
         return "UpdateFormWarehouse";
     }
 
-    @RequestMapping("/submit/add/form/warehouse/{id}")
+    @RequestMapping("/submit/add_warehouse/{id}")
     public String submitUpdateFormWarehouse(@PathVariable("id") Integer id,
                                             @RequestParam("code") Integer code,
                                             @RequestParam("name") String name){

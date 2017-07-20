@@ -29,12 +29,12 @@ public class PathController {
     @Autowired
     SaleChainCatalogue saleChainCatalogue;
 
-    @RequestMapping("/add/salePath")
+    @RequestMapping("/add_sale_path")
     public String addFormSalePath(){
         return "addFormSalePath";
     }
 
-    @RequestMapping("/submit/add/salePath")
+    @RequestMapping("/submit/add_sale_path")
     public String submitAddFormSalePath(@RequestParam("cost") Integer cost,
                                         @RequestParam("time") Integer time,
                                         @RequestParam("description") String description){
@@ -43,12 +43,12 @@ public class PathController {
         return "homepage";
     }
 
-    @RequestMapping("/update/salePath/{id}")
+    @RequestMapping("/update_sale_path/{id}")
     public String updateFormSalePath(){
         return "updateFormSalePath";
     }
 
-    @RequestMapping("/submit/update/salepath/")
+    @RequestMapping("/submit/update_salepath/")
     public String submitUpdateFormSalePath(@PathVariable("id") Integer id,
                                            @RequestParam("cost") Integer cost,
                                            @RequestParam("time") Integer time,
@@ -63,12 +63,12 @@ public class PathController {
     @Autowired
     SupplyChainCatalogue supplyChainCatalogue;
 
-    @RequestMapping("/add/form/supplyPath")
+    @RequestMapping("/add_supply_path")
     public String addFormSupplyPath(){
         return "forms/AddFormSupplyPath";
     }
 
-    @RequestMapping("/submit/add/form/supplyPath")
+    @RequestMapping("/submit/add_supply_path")
     public String submitAddFormSupplyPath(@RequestParam("cost") Integer cost,
                                         @RequestParam("time") Integer time,
                                         @RequestParam("description") String description){
@@ -77,12 +77,12 @@ public class PathController {
         return "homepage";
     }
 
-    @RequestMapping("/update/supplyPath/{id}")
+    @RequestMapping("/update_supply_path/{id}")
     public String updateFormSupplyPath(){
         return "updateFormSupplyPath";
     }
 
-    @RequestMapping("/submit/update/supplyPath")
+    @RequestMapping("/submit/update_supply_path")
     public String submitUpdateFormSupplyPath(@PathVariable("id") Integer id,
                                            @RequestParam("cost") Integer cost,
                                            @RequestParam("time") Integer time,
@@ -97,12 +97,12 @@ public class PathController {
     @Autowired
     SourceCatalogue sourceCatalogue;
 
-    @RequestMapping("/add/form/source")
+    @RequestMapping("/add_source")
     public String addFormSource(){
         return "AddFormSource";
     }
 
-    @RequestMapping("/submit/add/form/source")
+    @RequestMapping("/submit/add_source")
     public String submitAddFormSource(@RequestParam("name") String name,
                                       @RequestParam("address") String address){
         Source source = new Source(name, address);
@@ -110,12 +110,12 @@ public class PathController {
         return "homepage";
     }
 
-    @RequestMapping("/update/form/source/{id}")
+    @RequestMapping("/update_source/{id}")
     public String updateFormSource(){
         return "UpdateFormSource";
     }
 
-    @RequestMapping("/submit/update/form/source/{id}")
+    @RequestMapping("/submit/update_source/{id}")
     public String submitUpdateFormSource(@PathVariable("id") Integer id,
                                          @RequestParam("name") String name,
                                          @RequestParam("address") String address){

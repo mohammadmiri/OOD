@@ -1,0 +1,31 @@
+
+
+.text-font{
+    /*font-family: Iransans;*/
+}
+
+a{
+    text-decoration: none;
+}
+
+a:hover{
+    text-decoration: none;
+}
+
+.main-container{
+    padding: 1cm;
+
+}
+
+.item{
+    margin-top: 0.4cm;
+}
+
+.bg-green{
+    background-color: green;
+}
+
+.bg-blue{
+    background-color: blue;
+}
+

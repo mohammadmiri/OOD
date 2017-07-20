@@ -29,13 +29,13 @@ public class ProductController {
 
 
 
-    @RequestMapping("/add/form/comment/{product_id}")
+    @RequestMapping("/add_comment/{product_id}")
     public String addFormComment(@PathVariable("product_id") Integer product_id, Model model){
         model.addAttribute("product_id", product_id);
         return "forms/AddFormComment";
     }
 
-    @RequestMapping("/submit/add/form/comment/{product_id}")
+    @RequestMapping("/submit/add_comment/{product_id}")
     public String submitAddFormComment(@PathVariable("product_id") Integer product_id,
                                        @RequestParam("date") String date,
                                        @RequestParam("message") String message){
@@ -48,12 +48,12 @@ public class ProductController {
         return "homepage";
     }
 
-    @RequestMapping("/update/form/comment/{id}")
+    @RequestMapping("/update_comment/{id}")
     public String updateFormComment(@PathVariable("id") Integer id){
         return "UpdateFormComment";
     }
 
-    @RequestMapping("/submit/form/form/")
+    @RequestMapping("/submit/update_comment{id}")
     public String submitUpdateFormComment(){
         return "";
     }
@@ -70,12 +70,12 @@ public class ProductController {
         return "ShowProducts";
     }
 
-    @RequestMapping("/add/form/product")
+    @RequestMapping("/add_product")
     public String addFormProduct(){
         return "forms/AddFormProduct";
     }
 
-    @RequestMapping("/submit/add/form/product")
+    @RequestMapping("/submit/add_product")
     public String submitAddFormProduct(@RequestParam("name") String name,
                                        @RequestParam("price") Integer price,
                                        @RequestParam("description") String description,
@@ -91,22 +91,22 @@ public class ProductController {
         return "homepage";
     }
 
-    @RequestMapping("/update/form/product")
+    @RequestMapping("/update_product")
     public String updateFormProduct(){
         return "";
     }
 
-    @RequestMapping("/submit/update/form/product")
+    @RequestMapping("/submit/update_product")
     public String submitUpdateFormProduct(){
         return "";
     }
 
-    @RequestMapping("/advanceSearch/form")
+    @RequestMapping("/advanceSearch")
     public String advanceSearchProducts(){
         return "forms/AdvanceSearchProductsForm";
     }
 
-    @RequestMapping("/submit/advanceSearch/form")
+    @RequestMapping("/submit/advanceSearch")
     public String submitAdvanceSearchProduct(@RequestParam("productName") String productName, Model model){
         List<Product> products = (List<Product>) productCatalogue.findAll();
         List<Product> relatedProducts = new ArrayList<>();
@@ -134,12 +134,12 @@ public class ProductController {
     @Autowired
     ProductionStepCatalogue productionStepCatalogue;
 
-    @RequestMapping("/add/form/productionStep")
+    @RequestMapping("/add_productionStep")
     public String addFormProductionStep(){
         return "forms/AddFormProductionStep";
     }
 
-    @RequestMapping("submit/add/form/productionStep")
+    @RequestMapping("submit/add_productionStep")
     public String submitAddFormProductionStep(@RequestParam("cost") Integer cost,
                                               @RequestParam("preCondition") String preCondition,
                                               @RequestParam("postCondition") String postCondition){
@@ -151,12 +151,12 @@ public class ProductController {
         return "homepage";
     }
 
-    @RequestMapping("/update/form/productionStep")
+    @RequestMapping("/update_productionStep")
     public String updateFormProductionStep(){
         return "";
     }
 
-    @RequestMapping("/submit/update/form/productionStep")
+    @RequestMapping("/submit/update_productionStep")
     public String submitUpdateFormProductionStep(){
         return "";
     }
@@ -166,17 +166,29 @@ public class ProductController {
     @Autowired
     ComponentCatalogue componentCatalogue;
 
-    @RequestMapping("/add/form/component")
-    public String addFormComponent(){
-        System.out.println("in component method");
-        return "forms/AddFormComponent";
+
+    @RequestMapping("/show_components")
+    public String showComponents(Model model){
+        List<Component> components = (List<Component>) componentCatalogue.findAll();
+        model.addAttribute("components", components);
+        return "shows/show_components";
     }
 
-    @RequestMapping("/submit/add/form/component")
+    @RequestMapping("/delete_component/{id}")
+    public String deleteComponent(@PathVariable("id") Integer id){
+        componentCatalogue.delete(id);
+        return "homepage";
+    }
+
+    @RequestMapping("/add_component")
+    public String addComponent(){
+        return "adds/add_component";
+    }
+
+    @RequestMapping("/submit/add_component")
     public String submitAddFormComponent(@RequestParam("name") String name,
                                          @RequestParam("price") Integer price,
                                          @RequestParam("description") String description){
-        System.out.println("in submit component");
         Component component = new Component(name, price, description);
         component.setDescription(description);
         component.setName(name);
@@ -185,14 +197,24 @@ public class ProductController {
         return "homepage";
     }
 
-    @RequestMapping("/update/form/Component")
-    public String updateFormComponent(){
-        return "";
+    @RequestMapping("/update_component/{id}")
+    public String updateFormComponent(Model model, @PathVariable("id") Integer id){
+        model.addAttribute("id", id);
+        return "updates/update_component";
     }
 
-    @RequestMapping("/submit/update/form/component")
-    public String submitUpdateFormComponent(){
-        return "";
+    @RequestMapping("/submit/update_component/{id}")
+    public String submitUpdateFormComponent( @PathVariable("id") Integer id,
+                                             @RequestParam("name") String name,
+                                             @RequestParam("price") Integer price,
+                                             @RequestParam("description") String description){
+        Component component = componentCatalogue.findOne(id);
+        component.setName(name);
+        component.setPrice(price);
+        component.setDescription(description);
+        componentCatalogue.save(component);
+        System.out.println("in update func"+name+" "+price+" "+description);
+        return "homepage";
     }
 
 
@@ -201,14 +223,14 @@ public class ProductController {
     @Autowired
     ProductOrderCatalogue productOrderCatalogue;
 
-    @RequestMapping("/add/form/productOrder")
-    public String addFormProductOrder(){
+    @RequestMapping("/add_product_order")
+    public String addProductOrder(){
         return "forms/AddFormProductOrder";
     }
 
 
-    @RequestMapping("/submit/add/form/productOrder")
-    public String submitFormProductOrder(@RequestParam("totalCost") Integer totalCost,
+    @RequestMapping("/submit/add_product_order")
+    public String submitAddProductOrder(@RequestParam("totalCost") Integer totalCost,
                                          @RequestParam("date") String date,
                                          @RequestParam("products") String productsName,
                                          @RequestParam("requirements") String requirementsName){
@@ -220,10 +242,40 @@ public class ProductController {
                 }
             }
         }
+        Requirement requirement = new Requirement();
+        requirement.setDescription(requirementsName);
+        requirementRepository.save(requirement);
+        order.getRequirements().add(requirement);
         productOrderCatalogue.save(order);
         return "homepage";
     }
 
+    @RequestMapping("/update_product_order")
+    public String updateProductOrder(){
+        return "updates/ProductOrder";
+    }
+
+
+    @RequestMapping("/submit/add_product_order")
+    public String submitUpdateProductOrder(@RequestParam("totalCost") Integer totalCost,
+                                         @RequestParam("date") String date,
+                                         @RequestParam("products") String productsName,
+                                         @RequestParam("requirements") String requirementsName){
+        ProductOrder order = new ProductOrder(totalCost, new Date());
+        for(Product product:(List<Product>) productCatalogue.findAll()){
+            for(String productName:productsName.split(",")){
+                if(productName != "" && productName.equals(product.getName())){
+                    order.getProducts().add(product);
+                }
+            }
+        }
+        Requirement requirement = new Requirement();
+        requirement.setDescription(requirementsName);
+        requirementRepository.save(requirement);
+        order.getRequirements().add(requirement);
+        productOrderCatalogue.save(order);
+        return "homepage";
+    }
 
     /*** requirement ***/
 

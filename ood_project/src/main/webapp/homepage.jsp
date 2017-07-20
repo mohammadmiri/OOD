@@ -1,25 +1,37 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>homepage</title>
-    <link href="/src/main/resources/static/homepage.css" rel="stylesheet" type="text/css">
-</head>
-<body>
 
-<table>
-    <tr><a href="/product/add/form/component">add component</a></tr><br>
-    <tr><a href="/product/add/form/productionStep">add production step</a></tr><br>
-    <tr><a href="">get report produce steps</a></tr><br>
-    <tr><a href="/path/add/form/supplyPath">add supply chain</a></tr><br>
-    <tr><a href="/product/advanceSearch/form">advance search products</a></tr><br>
-    <tr><a href="/product/add/form/productOrder">add customer order</a></tr><br>
-    <tr><a href="">add automatic order</a></tr><br>
-    <tr><a href="/user/signup">sign up</a></tr><br>
-    <tr><a href="/user/add/form/employee">add employee</a></tr><br>
-    <tr><a href="/product/showProducts">add comment for product</a></tr><br>
-    <tr><a href="/product/add/form/product">add product</a></tr><br>
-</table>
+<%@ include file="base.jsp" %>
+
+
+<div class="container well-lg">
+    <div class="row">
+        <div class="col-md-offset-3 col-md-6 bg-info main-container img-rounded">
+            <div class="row">
+                <a href="/product/show_components"><button class="btn btn-info col-md-6 col-md-offset-3 item">components</button></a>
+            </div>
+            <div class="row">
+                <a href="#"><button class="btn btn-info col-md-6 col-md-offset-3 item">employees</button></a>
+            </div>
+            <div class="row">
+                <a href="#"><button class="btn btn-info col-md-6 col-md-offset-3 item">products</button></a>
+            </div>
+            <div class="row">
+                <a href="#"><button class="btn btn-info col-md-6 col-md-offset-3 item">sale paths</button></a>
+            </div>
+            <div class="row">
+                <a href="#"><button class="btn btn-info col-md-6 col-md-offset-3 item">supply paths</button></a>
+            </div>
+            <div class="row">
+                <a href="#"><button class="btn btn-info col-md-6 col-md-offset-3 item">sources</button></a>
+            </div>
+            <div class="row">
+                <a href="#"><button class="btn btn-info col-md-6 col-md-offset-3 item">advance search products</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 </body>
 </html>
+
