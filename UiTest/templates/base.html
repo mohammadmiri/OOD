@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="{% static 'main_css.css' %}" rel="stylesheet" type="text/css">
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+
+
+
+
+
+<nav class="nav navbar-inverse text-font">
+    <div class="container-fluid">
+        <div class="">
+            <ul class="nav navbar-btn navbar-left">
+                <li>
+                    <button type=button class="btn btn-danger btn-sm">خروج</button>
+                </li>
+            </ul>
+        </div>
+        <div class="">
+            <div class="nav navbar-brand navbar-right " id="menu-toggle">
+                <div class="">
+صفحه اصلی
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        {#  sidebar  #}
+        <div class="container-fluid col-md-3 pull-right sidebar text-font">
+            <div class="row">
+                <div class=" text-right header">:مدیریت خارجی</div>
+            </div>
+            <div class="row">
+                <a href="{% url 'OfficeList' %}"><div class="col-md-10 col-md-push-1 img-rounded text-right item">فهرست دفترها</div></a>
+            </div>
+            <div class="row">
+                <a href="{% url 'SupervisorList' %}"><div class="col-md-10 col-md-push-1 img-rounded text-right item">فهرست ناظرها</div></a>
+            </div>
+            <div class="row">
+                <a href="{% url 'EmployeeList' %}"><div class="col-md-10 col-md-push-1 img-rounded text-right item">فهرست کارمندان</div></a>
+            </div>
+            <hr style="color:white;"/>
+            <div class="row">
+                <div class="text-right header">:تخصیص وظیفه</div>
+            </div>
+            <div class="row">
+                <a href="{% url 'TaskGroupList' %}"><div class="col-md-10 col-md-push-1 img-rounded text-right item">فهرست گروه های وظیفه</div></a>
+            </div>
+            <div class="row">
+                <a href="{% url 'TaskList' %}"><div class="col-md-10 col-md-push-1 img-rounded text-right item">فهرست وظایف</div></a>
+            </div>
+        </div>
+
+        {#  main content  #}
+        <div class="container col-md-9 pull-left">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

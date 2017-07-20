@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% load filters %}
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'main_css.css' %}" type="text/css">
+
+</head>
+<body>
+
+<div class="container">
+    <form action="#" method="get">
+        <div class="">
+            {% csrf_token %}
+            {% for field in form.visible_fields %}
+                <div class="form-group-sm col-md-12 well-sm">
+                    {% if field.field.widget|get_klass == 'CheckboxInput' %}
+                        <div class="col-md-2 col-md-offset-4 text-right ">{{ field }}</div>
+                    {% else %}
+                        <div class="col-md-2 col-md-offset-4 text-right ">{{ field|add_class:'form-control' }}</div>
+                    {% endif %}
+                    <div class="col-md-1 col-md-offset-0 text-right">{{ field.label }}</div>
+                </div>
+            {% endfor %}
+            <div class="col-md-12 row well-lg">
+                <button type="submit" class="btn btn-default col-md-offset-5">ارسال</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

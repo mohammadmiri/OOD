@@ -1,0 +1,65 @@
+{% extends 'ood_project/base.html' %}
+<!DOCTYPE html>
+{% load static %}
+
+
+{% block content %}
+
+    <div class="container well-lg">
+        <div class="row">
+            <div class="col-md-offset-3 col-md-6 bg-info main-container img-rounded">
+                <form action="#" class="form-group-sm">
+                    {% csrf_token %}
+                    <div class="row item">
+                        <div class="col-md-offset-3 col-md-3">
+                            <div class="text-font pull-right">Username:</div>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="pull-left form-control" type="text">
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-md-offset-3 col-md-3">
+                            <div class="text-font pull-right">Password:</div>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="pull-left form-control" type="password">
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-md-offset-3 col-md-3">
+                            <div class="text-font pull-right">FirstName:</div>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="pull-left form-control" type="text">
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-md-offset-3 col-md-3">
+                            <div class="text-font pull-right">Lastname:</div>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="pull-left form-control" type="text">
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <button type="submit" class="btn btn-success col-md-offset-5">submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row item">
+            <div class="col-md-10 col-md-offset-1 container">
+                {% for item in items %}
+                    <div class="row item well-sm bg-info">
+                        <div class="col-md-2 col-md-offset-3 text-center">{{ item }}</div>
+                        <button class="btn btn-danger col-md-1 col-md-offset-3">delete</button>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
