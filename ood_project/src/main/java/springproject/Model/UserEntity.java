@@ -35,6 +35,10 @@ public class UserEntity {
         this.lastName = lastName;
     }
 
+    public UserEntity(){
+
+    }
+
     public Integer getId() {
         return id;
     }

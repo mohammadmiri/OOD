@@ -11,6 +11,7 @@ import springproject.Model.*;
 import springproject.Repository.*;
 import springproject.Service.*;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -63,25 +64,40 @@ public class ProductController {
     @Autowired
     ProductCatalogue productCatalogue;
 
-    @RequestMapping("/showProducts")
+    @RequestMapping("/show_products")
     public String showProducts(Model model){
         List<Product> products = (List<Product>)productCatalogue.findAll();
         model.addAttribute("products", products);
-        return "ShowProducts";
+        return "shows/show_products";
+    }
+
+    @RequestMapping("/show_one_product/{id}")
+    public String showOneProduct(Model model, @PathVariable("id") Integer id){
+        Product product = productCatalogue.findOne(id);
+        model.addAttribute("product", product);
+        List<Comment> comments = product.getComments();
+        model.addAttribute("comments", comments);
+        return "shows/show_one_product";
+    }
+
+    @RequestMapping("/delete_product/{id}")
+    public String deleteProduct(@PathVariable("id") Integer id){
+        productCatalogue.delete(id);
+        return "homepage";
     }
 
     @RequestMapping("/add_product")
-    public String addFormProduct(){
-        return "forms/AddFormProduct";
+    public String addProduct(){
+        return "adds/add_product";
     }
 
     @RequestMapping("/submit/add_product")
-    public String submitAddFormProduct(@RequestParam("name") String name,
+    public String submitAddProduct(@RequestParam("name") String name,
                                        @RequestParam("price") Integer price,
                                        @RequestParam("description") String description,
                                        @RequestParam("productionSteps") String productionStepsId){
         Product product = new Product(name, price, description);
-        product.getProductionSteps();
+        product.getProductionSteps().clear();
         for(String id:productionStepsId.split(" ")){
             if(id!="") {
                 product.getProductionSteps().add(productionStepCatalogue.findOne(Integer.parseInt(id)));
@@ -91,14 +107,27 @@ public class ProductController {
         return "homepage";
     }
 
-    @RequestMapping("/update_product")
-    public String updateFormProduct(){
-        return "";
+    @RequestMapping("/update_product/{id}")
+    public String updateProduct(Model model, @PathVariable("id") Integer id){
+        model.addAttribute("id", id);
+        return "updates/update_product";
     }
 
-    @RequestMapping("/submit/update_product")
-    public String submitUpdateFormProduct(){
-        return "";
+    @RequestMapping("/submit/update_product/{id}")
+    public String submitUpdateProduct(@PathVariable("id") Integer id,
+                                      @RequestParam("name") String name,
+                                      @RequestParam("price") Integer price,
+                                      @RequestParam("description") String description,
+                                      @RequestParam("productionSteps") String productionStepsId){
+        Product product = productCatalogue.findOne(id);
+        product.getProductionSteps();
+        for(String Id:productionStepsId.split(" ")){
+            if(Id!="") {
+                product.getProductionSteps().add(productionStepCatalogue.findOne(Integer.parseInt(Id)));
+            }
+        }
+        productCatalogue.save(product);
+        return "homepage";
     }
 
     @RequestMapping("/advanceSearch")
@@ -256,7 +285,7 @@ public class ProductController {
     }
 
 
-    @RequestMapping("/submit/add_product_order")
+    @RequestMapping("/submit/update_product_order")
     public String submitUpdateProductOrder(@RequestParam("totalCost") Integer totalCost,
                                          @RequestParam("date") String date,
                                          @RequestParam("products") String productsName,

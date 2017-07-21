@@ -2,6 +2,7 @@ package springproject.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,14 +27,26 @@ public class UserController {
     @Autowired
     EmployeeCatalogue employeeCatalogue;
 
+    @RequestMapping("/show_employees")
+    public String showEmployees(Model model){
+        List<Employee> employees = (List<Employee>) employeeCatalogue.findAll();
+        model.addAttribute("employees", employees);
+        return "shows/show_employees";
+    }
+
+    @RequestMapping("/delete_employee")
+    public String deleteEmployee(@PathVariable("id") Integer id){
+        employeeCatalogue.delete(id);
+        return "homepage";
+    }
+
     @RequestMapping("/add_employee")
-    public String addFormEmployee(){
-        System.out.println("in add employee method");
-        return "forms/AddFormEmployee";
+    public String addEmployee(){
+        return "adds/add_employee";
     }
 
     @RequestMapping("/submit/add_employee")
-    public String submitAddFormEmployee(@RequestParam("username") String username,
+    public String submitAddEmployee(@RequestParam("username") String username,
                                         @RequestParam("password") String password,
                                         @RequestParam("firstName") String firstName,
                                         @RequestParam("lastName") String lastName,
@@ -52,12 +65,14 @@ public class UserController {
     }
 
     @RequestMapping("/update_employee/{id}")
-    public String updateFormEmployee(@PathVariable("id") Integer id){
-        return "updateEmployee";
+    public String updateEmployee(Model model, @PathVariable("id") Integer id){
+        Employee employee = employeeCatalogue.findOne(id);
+        model.addAttribute("employee", employee);
+        return "updates/update_employee";
     }
 
     @RequestMapping("/submit/update_employee/{id}")
-    public String submitUpdateFormEmployee(@PathVariable("id") Integer id,
+    public String submitUpdateEmployee(@PathVariable("id") Integer id,
                                            @RequestParam("username") String username,
                                            @RequestParam("password") String password,
                                            @RequestParam("firstName") String firstName,
@@ -76,8 +91,16 @@ public class UserController {
 
     /*** customer ***/
 
+    public static Integer loggedInCustomerId;
+
     @Autowired
     CustomerCatalogue customerCatalogue;
+
+    @RequestMapping("show_profile")
+    public String showProfile(Model model){
+        Customer customer = customerCatalogue.findOne(loggedInCustomerId);
+        return "show_profile";
+    }
 
     @RequestMapping("/signup")
     public String addFormCustomer(){

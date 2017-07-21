@@ -7,13 +7,16 @@
     <div class="row">
         <div class="col-md-offset-3 col-md-6 bg-info main-container img-rounded">
             <div class="row">
+                <a href="/user/"><button class="btn btn-info col-md-6 col-md-offset-3 item">profile</button></a>
+            </div>
+            <div class="row">
                 <a href="/product/show_components"><button class="btn btn-info col-md-6 col-md-offset-3 item">components</button></a>
             </div>
             <div class="row">
-                <a href="#"><button class="btn btn-info col-md-6 col-md-offset-3 item">employees</button></a>
+                <a href="/user/show_employees"><button class="btn btn-info col-md-6 col-md-offset-3 item">employees</button></a>
             </div>
             <div class="row">
-                <a href="#"><button class="btn btn-info col-md-6 col-md-offset-3 item">products</button></a>
+                <a href="/product/show_products"><button class="btn btn-info col-md-6 col-md-offset-3 item">products</button></a>
             </div>
             <div class="row">
                 <a href="#"><button class="btn btn-info col-md-6 col-md-offset-3 item">sale paths</button></a>

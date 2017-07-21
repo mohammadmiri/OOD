@@ -17,6 +17,10 @@ public class Employee extends UserEntity {
         super(username, password, firstName, lastName);
     }
 
+    public Employee(){
+        super();
+    }
+
     public Role getRole() {
         return role;
     }

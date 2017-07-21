@@ -27,4 +27,8 @@ public class ProductCatalogue {
         return productRepository.findOne(id);
     }
 
+    public void delete(Integer id){
+        productRepository.delete(id);
+    }
+
 }

@@ -27,4 +27,7 @@ public class EmployeeCatalogue {
         return employeeRepository.findOne(id);
     }
 
+    public void delete(Integer id){
+        employeeRepository.delete(id);
+    }
 }
