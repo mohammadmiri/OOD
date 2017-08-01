@@ -28,6 +28,14 @@ public class SaleChain {
         this.description = description;
     }
 
+    public SaleChain(){
+
+    }
+
+    public Integer getId(){
+        return this.id;
+    }
+
     public Integer getCost() {
         return cost;
     }

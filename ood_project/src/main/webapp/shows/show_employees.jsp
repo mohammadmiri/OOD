@@ -11,7 +11,7 @@
                         <div class="col-md-1 text-center">${item.username}</div>
                         <div class="col-md-1 text-center">${item.firstName}</div>
                         <div class="col-md-1 text-center">${item.lastName}</div>
-                        <div class="col-md-1 text-center">${item.role}</div>
+                        <div class="col-md-1 text-center">${item.type}</div>
                         <a href="/user/update_employee/${item.id}"><button class="btn btn-primary col-md-1 col-md-offset-1">update</button></a>
                         <a href="/user/delete_employee/${item.id}"><button class="btn btn-danger col-md-1 col-md-offset-1">delete</button></a>
                     </div>

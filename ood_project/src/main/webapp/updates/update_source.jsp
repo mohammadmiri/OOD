@@ -3,8 +3,7 @@
     <div class="container well-lg">
         <div class="row">
             <div class="col-md-offset-3 col-md-6 bg-info main-container img-rounded">
-                <form action="#" class="form-group-sm">
-                    {% csrf_token %}
+                <form action="/path/submit/update_source/${source.id}" class="form-group-sm">
                     <div class="row">
                         <div class="col-md-3">
                             <input class="pull-left form-control" type="hidden" value="{{ id }}">

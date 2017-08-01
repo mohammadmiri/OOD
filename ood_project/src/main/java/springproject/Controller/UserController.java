@@ -7,12 +7,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import springproject.Model.*;
-import springproject.Repository.CustomerRepository;
-import springproject.Repository.EmployeeRepository;
 import springproject.Service.CustomerCatalogue;
 import springproject.Service.EmployeeCatalogue;
+import springproject.Service.UserCatalogue;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,15 +49,19 @@ public class UserController {
                                         @RequestParam("firstName") String firstName,
                                         @RequestParam("lastName") String lastName,
                                         @RequestParam("role") String role){
-        Employee employee = new Employee(username, password, firstName, lastName);
-        Role roleVar = null;
+        Employee employee = new Employee(username, password, firstName, lastName, false);
+        Type typeVar = null;
         switch (role){
-            case "Manager":roleVar=Role.Manager;break;
-            case "OrderAndSupplyManager":roleVar=Role.OrderAndSupplyManager;break;
-            case "Warehouse":roleVar=Role.Warehouse; break;
-            case "CustomerRelationshipManager":roleVar=Role.Warehouse; break;
+            case "Manager":
+                typeVar = Type.Manager;break;
+            case "OrderAndSupplyManager":
+                typeVar = Type.OrderAndSupplyManager;break;
+            case "Warehouse":
+                typeVar = Type.Warehouse; break;
+            case "CustomerRelationshipManager":
+                typeVar = Type.Warehouse; break;
         }
-        employee.setRole(roleVar);
+        employee.setType(typeVar);
         employeeCatalogue.save(employee);
         return "homepage";
     }
@@ -96,16 +98,31 @@ public class UserController {
     @Autowired
     CustomerCatalogue customerCatalogue;
 
-    @RequestMapping("show_profile")
+    @RequestMapping("/show_profile")
     public String showProfile(Model model){
-        Customer customer = customerCatalogue.findOne(loggedInCustomerId);
-        return "show_profile";
+        System.out.println("in show profile");
+        List<Customer> customers = (List<Customer>) customerCatalogue.findAll();
+        Customer customer = null;
+        for(Customer c:customers){
+            if(c.getLoggedIn() == true) {
+                customer = c;
+            }
+        }
+        List<ProductOrder> orders = customer.getProductOrders();
+        model.addAttribute("customer", customer);
+        model.addAttribute("orders", orders);
+        return "shows/show_profile";
+    }
+
+    @RequestMapping("/delete/{id}")
+    public String deleteCustomer(@PathVariable("id") Integer id){
+        customerCatalogue.delete(id);
+        return "homepage";
     }
 
     @RequestMapping("/signup")
     public String addFormCustomer(){
-        System.out.println("in signup method");
-        return "forms/signup";
+        return "adds/signup";
     }
 
     @RequestMapping("/submit/signup")
@@ -113,18 +130,21 @@ public class UserController {
                                         @RequestParam("password") String password,
                                         @RequestParam("firstName") String firstName,
                                         @RequestParam("lastName") String lastName){
-        Customer customer = new Customer(username, password, firstName, lastName);
+        Customer customer = new Customer(username, password, firstName, lastName, false);
         customerCatalogue.save(customer);
         return "homepage";
     }
 
     @RequestMapping("/update_profile/{id}")
-    public String updateFormCustomer(){
-        return "editProfile";
+    public String edieProfile(Model model,
+                                     @PathVariable("id") Integer id){
+        Customer customer = customerCatalogue.findOne(id);
+        model.addAttribute("customer", customer);
+        return "update/change_profile";
     }
 
     @RequestMapping("/submit/update_profile/{id}")
-    public String submitUpdateFormCustomer(@PathVariable("id") Integer id,
+    public String submitEditProfile(@PathVariable("id") Integer id,
                                            @RequestParam("username") String username,
                                            @RequestParam("password") String password,
                                            @RequestParam("firstName") String firstName,
@@ -136,6 +156,40 @@ public class UserController {
         customer.setLastName(lastName);
         customerCatalogue.save(customer);
         return "homepage";
+    }
+
+    @RequestMapping("/login")
+    public String login(){
+        return "login";
+    }
+
+    @RequestMapping("/submit/login")
+    public String submitLogin(@RequestParam("username") String username,
+                              @RequestParam("password") String password){
+        List<Customer> customers = (List<Customer>)customerCatalogue.findAll();
+        for(Customer customer:customers){
+            if(customer.getUsername().equals(username) && customer.getPassword().equals(password)){
+                customer.setLoggedIn(true);
+                customerCatalogue.save(customer);
+                return "homepage";
+            }
+        }
+        return "login";
+    }
+
+    @Autowired
+    UserCatalogue userCatalogue;
+
+    @RequestMapping("/logout")
+    public String logout(){
+        List<UserEntity> userEntities = (List<UserEntity>) userCatalogue.findAll();
+        for(UserEntity userEntity:userEntities){
+            if(userEntity.getLoggedIn()==true){
+                userEntity.setLoggedIn(false);
+                userCatalogue.save(userEntity);
+            }
+        }
+        return "login";
     }
 
 }

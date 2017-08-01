@@ -26,9 +26,17 @@ public class Source {
     @ManyToMany
     private List<Component> components;
 
+    public Source(){
+
+    }
+
     public Source(String name, String address) {
         this.name = name;
         this.address = address;
+    }
+
+    public Integer getId(){
+        return this.id;
     }
 
     public String getName() {

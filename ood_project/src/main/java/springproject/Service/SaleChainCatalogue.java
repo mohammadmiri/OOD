@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import springproject.Model.SaleChain;
 import springproject.Model.Warehouse;
+import springproject.Repository.SaleChainRepository;
 import springproject.Repository.WarehouseRepository;
 
 /**
@@ -15,17 +16,21 @@ public class SaleChainCatalogue {
 
 
     @Autowired
-    SaleChainCatalogue saleChainCatalogue;
+    SaleChainRepository saleChainRepository;
 
     public Iterable<SaleChain> findAll(){
-        return saleChainCatalogue.findAll();
+        return saleChainRepository.findAll();
     }
 
     public void save(SaleChain saleChain){
-        saleChainCatalogue.save(saleChain);
+        saleChainRepository.save(saleChain);
     }
 
     public SaleChain findOne(Integer id){
-        return saleChainCatalogue.findOne(id);
+        return saleChainRepository.findOne(id);
+    }
+
+    public void delete(Integer id){
+        saleChainRepository.delete(id);
     }
 }

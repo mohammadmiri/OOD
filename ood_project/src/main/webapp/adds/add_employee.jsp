@@ -42,7 +42,7 @@
                             <div class="text-font pull-right">Role:</div>
                         </div>
                         <div class="col-md-3">
-                            <input class="pull-left form-control" type="text" name="role">
+                            <input class="pull-left form-control" type="text" name="type">
                         </div>
                     </div>
                     <div class="row item">

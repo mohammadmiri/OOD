@@ -28,7 +28,7 @@
         </c:forEach>
     </div>
     <div class="row container well item">
-        <form action="/submit/add_comment/${product.id}">
+        <form action="/product/submit/add_comment/${product.id}">
             <div class="row item">
                 <div class="col-md-1 text-right">Name:</div>
                 <div class="col-md-8">
@@ -38,7 +38,7 @@
             <div class="row item">
                 <div class="col-md-1 text-right">Comment:</div>
                 <div class="col-md-8">
-                    <input class="form-control" type="text" name="comment">
+                    <input class="form-control" type="text" name="message">
                 </div>
             </div>
             <div class="row item">

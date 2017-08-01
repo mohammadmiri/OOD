@@ -1,0 +1,8 @@
+package springproject.Model;
+
+/**
+ * Created by mohammad on 7/2/2017.
+ */
+public enum Type {
+    Manager, OrderAndSupplyManager, Warehouse, CustomerRelationshipManager
+}

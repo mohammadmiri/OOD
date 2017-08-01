@@ -15,14 +15,6 @@
                     </div>
                     <div class="row item">
                         <div class="col-md-offset-3 col-md-3">
-                            <div class="text-font pull-right">warehouse:</div>
-                        </div>
-                        <div class="col-md-3">
-                            <input class="pull-left form-control" type="text" name="warehouse">
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-offset-3 col-md-3">
                             <div class="text-font pull-right">amount:</div>
                         </div>
                         <div class="col-md-3">

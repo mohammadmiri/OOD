@@ -11,21 +11,21 @@ import javax.persistence.Entity;
 public class Employee extends UserEntity {
 
     @Column
-    private Role role;
+    private Type type;
 
-    public Employee(String username, String password, String firstName, String lastName) {
-        super(username, password, firstName, lastName);
+    public Employee(String username, String password, String firstName, String lastName, Boolean isLoggedIn) {
+        super(username, password, firstName, lastName, isLoggedIn);
     }
 
     public Employee(){
         super();
     }
 
-    public Role getRole() {
-        return role;
+    public Type getType() {
+        return type;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setType(Type type) {
+        this.type = type;
     }
 }

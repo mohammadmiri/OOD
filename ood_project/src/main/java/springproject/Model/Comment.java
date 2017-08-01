@@ -28,6 +28,10 @@ public class Comment {
         this.message = message;
     }
 
+    public Comment() {
+
+    }
+
     public Integer getId() {
         return id;
     }

@@ -21,6 +21,10 @@ public class Warehouse {
     @Column
     private String name;
 
+    public Warehouse(){
+
+    }
+
     public Warehouse(Integer code, String name) {
         this.code = code;
         this.name = name;

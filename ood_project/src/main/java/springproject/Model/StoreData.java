@@ -41,6 +41,7 @@ public class StoreData {
     }
 
     public void setWarehouse(Warehouse warehouse) {
+        warehouse.getStoreData().add(this);
         this.warehouse = warehouse;
     }
 

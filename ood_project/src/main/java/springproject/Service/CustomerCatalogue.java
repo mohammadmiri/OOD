@@ -26,4 +26,15 @@ public class CustomerCatalogue {
     public Customer findOne(Integer id){
         return customerRepository.findOne(id);
     }
+
+    public void delete(Integer id){ customerRepository.delete(id); }
+
+    public Customer getLoggedInCustomer(){
+        for(Customer c:customerRepository.findAll()){
+            if(c.getLoggedIn()==true){
+                return c;
+            }
+        }
+        return null;
+    }
 }

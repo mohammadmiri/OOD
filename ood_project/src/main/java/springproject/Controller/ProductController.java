@@ -28,8 +28,6 @@ public class ProductController {
     @Autowired
     CommentCatalogue commentCatalogue;
 
-
-
     @RequestMapping("/add_comment/{product_id}")
     public String addFormComment(@PathVariable("product_id") Integer product_id, Model model){
         model.addAttribute("product_id", product_id);
@@ -38,9 +36,7 @@ public class ProductController {
 
     @RequestMapping("/submit/add_comment/{product_id}")
     public String submitAddFormComment(@PathVariable("product_id") Integer product_id,
-                                       @RequestParam("date") String date,
                                        @RequestParam("message") String message){
-        System.out.println("product_id:"+product_id);
         Product product = productCatalogue.findOne(product_id);
         Comment comment = new Comment(new Date(), message);
         commentCatalogue.save(comment);
@@ -252,9 +248,25 @@ public class ProductController {
     @Autowired
     ProductOrderCatalogue productOrderCatalogue;
 
+    @Autowired
+    CustomerCatalogue customerCatalogue;
+
+    @RequestMapping("/show_product_order")
+    public String showProductOrders(Model model){
+        List<ProductOrder> productOrders = (List<ProductOrder>) productOrderCatalogue.findAll();
+        model.addAttribute("orders", productOrders);
+        return "shows/show_product_order";
+    }
+
+    @RequestMapping("/delete_product_order")
+    public String deleteProductOrders(@PathVariable("id") Integer id){
+        productOrderCatalogue.delete(id);
+        return "homepage";
+    }
+
     @RequestMapping("/add_product_order")
     public String addProductOrder(){
-        return "forms/AddFormProductOrder";
+        return "adds/add_product_order";
     }
 
 
@@ -275,6 +287,8 @@ public class ProductController {
         requirement.setDescription(requirementsName);
         requirementRepository.save(requirement);
         order.getRequirements().add(requirement);
+        Customer customer = customerCatalogue.getLoggedInCustomer();
+        order.setCustomer(customer);
         productOrderCatalogue.save(order);
         return "homepage";
     }

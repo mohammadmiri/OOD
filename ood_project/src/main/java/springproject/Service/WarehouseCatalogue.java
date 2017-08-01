@@ -28,4 +28,6 @@ public class WarehouseCatalogue {
     public Warehouse findOne(Integer id){
         return warehouseRepository.findOne(id);
     }
+
+    public void delete(Integer id){ warehouseRepository.delete(id); }
 }

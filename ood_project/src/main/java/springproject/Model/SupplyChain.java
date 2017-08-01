@@ -28,6 +28,14 @@ public class SupplyChain {
         this.description = description;
     }
 
+    public SupplyChain(){
+
+    }
+
+    public Integer getId(){
+        return this.id;
+    }
+
     public Integer getCost() {
         return cost;
     }

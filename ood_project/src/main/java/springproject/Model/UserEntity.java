@@ -20,6 +20,9 @@ public class UserEntity {
     private String username;
 
     @Column
+    private Boolean isLoggedIn;
+
+    @Column
     private String password;
 
     @Column
@@ -28,15 +31,24 @@ public class UserEntity {
     @Column
     private String lastName;
 
-    public UserEntity(String username, String password, String firstName, String lastName) {
+    public UserEntity(String username, String password, String firstName, String lastName, Boolean isLoggedIn) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.isLoggedIn = isLoggedIn;
     }
 
     public UserEntity(){
 
+    }
+
+    public Boolean getLoggedIn() {
+        return isLoggedIn;
+    }
+
+    public void setLoggedIn(Boolean loggedIn) {
+        isLoggedIn = loggedIn;
     }
 
     public Integer getId() {

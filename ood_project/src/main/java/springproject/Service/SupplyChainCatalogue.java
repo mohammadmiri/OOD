@@ -3,6 +3,7 @@ package springproject.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import springproject.Model.SupplyChain;
+import springproject.Repository.SupplyChainRepository;
 
 /**
  * Created by mohammad on 7/3/2017.
@@ -13,17 +14,21 @@ public class SupplyChainCatalogue {
 
 
     @Autowired
-    SupplyChainCatalogue supplyChainCatalogue;
+    SupplyChainRepository supplyChainRepository;
 
     public Iterable<SupplyChain> findAll(){
-        return supplyChainCatalogue.findAll();
+        return supplyChainRepository.findAll();
     }
 
     public void save(SupplyChain supplyChain){
-        supplyChainCatalogue.save(supplyChain);
+        supplyChainRepository.save(supplyChain);
     }
 
     public SupplyChain findOne(Integer id){
-        return supplyChainCatalogue.findOne(id);
+        return supplyChainRepository.findOne(id);
+    }
+
+    public void delete(Integer id){
+        supplyChainRepository.delete(id);
     }
 }

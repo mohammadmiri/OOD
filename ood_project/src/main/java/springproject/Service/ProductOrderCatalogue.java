@@ -23,4 +23,12 @@ public class ProductOrderCatalogue {
     public void save(ProductOrder productOrder){
         productOrderRepository.save(productOrder);
     }
+
+    public ProductOrder findOne(Integer id){
+        return productOrderRepository.findOne(id);
+    }
+
+    public void delete(Integer id){
+        productOrderRepository.delete(id);
+    }
 }

@@ -19,8 +19,12 @@ public class Customer extends UserEntity {
     @OneToMany
     private List<ProductOrder> productOrders = new ArrayList<>();
 
-    public Customer(String username, String password, String firstName, String lastName) {
-        super(username, password, firstName, lastName);
+    public Customer(){
+        super();
+    }
+
+    public Customer(String username, String password, String firstName, String lastName, Boolean isLoggedIn) {
+        super(username, password, firstName, lastName, isLoggedIn);
     }
 
     public List<ProductOrder> getProductOrders() {

@@ -30,4 +30,6 @@ public class SourceCatalogue {
     public Source findOne(Integer id){
         return sourceRepository.findOne(id);
     }
+
+    public void delete(Integer id){sourceRepository.delete(id);}
 }

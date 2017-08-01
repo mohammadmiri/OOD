@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +30,9 @@ public class ProductOrder extends OrderEntity {
     }
 
     public List<Product> getProducts() {
+        if(this.products == null){
+            this.products = new ArrayList<>();
+        }
         return products;
     }
 
@@ -37,6 +41,9 @@ public class ProductOrder extends OrderEntity {
     }
 
     public List<Requirement> getRequirements() {
+        if(this.requirements == null){
+            this.requirements = new ArrayList<>();
+        }
         return requirements;
     }
 
@@ -49,6 +56,7 @@ public class ProductOrder extends OrderEntity {
     }
 
     public void setCustomer(Customer customer) {
+        customer.getProductOrders().add(this);
         this.customer = customer;
     }
 

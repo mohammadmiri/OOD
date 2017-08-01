@@ -16,19 +16,20 @@ public class UserCatalogue {
     @Autowired
     private UserRepository userRepository;
 
-    public UserEntity getBook(Integer id){
+    public Iterable<UserEntity> findAll(){
+        return userRepository.findAll();
+    }
+
+    public UserEntity findOne(Integer id){
         return userRepository.findOne(id);
     }
 
-    public void addUser(UserEntity user){
+    public void save(UserEntity user){
         userRepository.save(user);
     }
 
-    public void deleteUser(UserEntity user){
-        userRepository.delete(user);
+    public void delete(Integer id){
+        userRepository.delete(id);
     }
-
-
-
 
 }

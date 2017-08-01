@@ -1,3 +1,5 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <%@ include file="../base.jsp" %>
 
     <div class="container well-lg">
@@ -8,15 +10,7 @@
                         <div class="text-font pull-right">Username:</div>
                     </div>
                     <div class="col-md-3">
-                        <div class="">user name</div>
-                    </div>
-                </div>
-                <div class="row item">
-                    <div class="col-md-offset-3 col-md-3">
-                        <div class="text-font pull-right">Password:</div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="">password</div>
+                        <div class="">${customer.username}</div>
                     </div>
                 </div>
                 <div class="row item">
@@ -24,7 +18,7 @@
                         <div class="text-font pull-right">FirstName:</div>
                     </div>
                     <div class="col-md-3">
-                        <div class="">first name</div>
+                        <div class="">${customer.firstName}</div>
                     </div>
                 </div>
                 <div class="row item">
@@ -32,7 +26,7 @@
                         <div class="text-font pull-right">Lastname:</div>
                     </div>
                     <div class="col-md-3">
-                        <div class="last name">last name</div>
+                        <div class="last name">${customer.lastName}</div>
                     </div>
                 </div>
                 <div class="row item">
@@ -41,15 +35,28 @@
             </div>
         </div>
 
-        {#    show   orders  #}
-        <div class="row item">
-            <div class="col-md-10 col-md-offset-1 container">
-                {% for item in items %}
-                    <div class="row item well-sm bg-info">
-                        <div class="col-md-2 col-md-offset-3 text-center">{{ item }}</div>
-                        <button class="btn btn-danger col-md-1 col-md-offset-3"><a href="#">delete</a></button>
+        <%--    show   orders  --%>
+        <div class="panel panel-default">
+            <div class="panel-heading">Orders:</div>
+            <div class="panel-body">
+                <div class="row item">
+                    <div class="col-md-10 col-md-offset-1 container">
+                        <c:forEach items="${orders}" var="item">
+                            <div class="row item well-sm bg-info">
+                                <div class="col-md-1 col-md-offset-1 text-center">${item.id}</div>
+                                <div class="col-md-1 col-md-offset-1 text-center">${item.totalCost}</div>
+                                <a href=""><button class="btn btn-danger col-md-1 col-md-offset-1">delete</button></a>
+                                <a href=""><button class="btn btn-primary col-md-1 col-md-offset-1">update</button> </a>
+                                <c:forEach items="${item.products}" var="product">
+                                    <p>${product.name}</p>
+                                </c:forEach>
+                            </div>
+                        </c:forEach>
+                        <div class="row item">
+                            <a href="/product/add_product_order"><button class="btn btn-primary col-md-1 col-md-offset-1">New</button></a>
+                        </div>
                     </div>
-                {% endfor %}
+                </div>
             </div>
         </div>
 
