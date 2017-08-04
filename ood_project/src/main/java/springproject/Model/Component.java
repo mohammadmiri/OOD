@@ -14,4 +14,8 @@ public class Component extends Storable{
 
     public Component() {
     }
+
+    public String toString(){
+        return this.getName();
+    }
 }

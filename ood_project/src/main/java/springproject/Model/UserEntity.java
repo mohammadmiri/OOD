@@ -20,7 +20,7 @@ public class UserEntity {
     private String username;
 
     @Column
-    private Boolean isLoggedIn;
+    private Boolean isLoggedIn = false;
 
     @Column
     private String password;
@@ -40,10 +40,12 @@ public class UserEntity {
     }
 
     public UserEntity(){
-
     }
 
     public Boolean getLoggedIn() {
+        if(isLoggedIn==null){
+            isLoggedIn = false;
+        }
         return isLoggedIn;
     }
 

@@ -32,10 +32,10 @@ public class UserController {
         return "shows/show_employees";
     }
 
-    @RequestMapping("/delete_employee")
+    @RequestMapping("/delete_employee/{id}")
     public String deleteEmployee(@PathVariable("id") Integer id){
         employeeCatalogue.delete(id);
-        return "homepage";
+        return "redirect:/home/";
     }
 
     @RequestMapping("/add_employee")
@@ -57,13 +57,13 @@ public class UserController {
             case "OrderAndSupplyManager":
                 typeVar = Type.OrderAndSupplyManager;break;
             case "Warehouse":
-                typeVar = Type.Warehouse; break;
+                typeVar = Type.WarehouseManager; break;
             case "CustomerRelationshipManager":
-                typeVar = Type.Warehouse; break;
+                typeVar = Type.CustomerRelationshipManager; break;
         }
         employee.setType(typeVar);
         employeeCatalogue.save(employee);
-        return "homepage";
+        return "redirect:/home/";
     }
 
     @RequestMapping("/update_employee/{id}")
@@ -85,7 +85,7 @@ public class UserController {
         employee.setFirstName(firstName);
         employee.setLastName(lastName);
         employeeCatalogue.save(employee);
-        return "homepage";
+        return "redirect:/home/";
     }
 
 
@@ -117,7 +117,7 @@ public class UserController {
     @RequestMapping("/delete/{id}")
     public String deleteCustomer(@PathVariable("id") Integer id){
         customerCatalogue.delete(id);
-        return "homepage";
+        return "redirect:/home/";
     }
 
     @RequestMapping("/signup")
@@ -132,7 +132,7 @@ public class UserController {
                                         @RequestParam("lastName") String lastName){
         Customer customer = new Customer(username, password, firstName, lastName, false);
         customerCatalogue.save(customer);
-        return "homepage";
+        return "redirect:/home/";
     }
 
     @RequestMapping("/update_profile/{id}")
@@ -155,7 +155,7 @@ public class UserController {
         customer.setFirstName(firstName);
         customer.setLastName(lastName);
         customerCatalogue.save(customer);
-        return "homepage";
+        return "redirect:/home/";
     }
 
     @RequestMapping("/login")
@@ -171,7 +171,15 @@ public class UserController {
             if(customer.getUsername().equals(username) && customer.getPassword().equals(password)){
                 customer.setLoggedIn(true);
                 customerCatalogue.save(customer);
-                return "homepage";
+                return "redirect:/home/";
+            }
+        }
+        List<Employee> employees = (List<Employee>) employeeCatalogue.findAll();
+        for(Employee employee:employees){
+            if(employee.getUsername().equals(username) && employee.getPassword().equals(password)){
+                employee.setLoggedIn(true);
+                employeeCatalogue.save(employee);
+                return "redirect:/home/";
             }
         }
         return "login";
@@ -182,11 +190,16 @@ public class UserController {
 
     @RequestMapping("/logout")
     public String logout(){
-        List<UserEntity> userEntities = (List<UserEntity>) userCatalogue.findAll();
-        for(UserEntity userEntity:userEntities){
-            if(userEntity.getLoggedIn()==true){
-                userEntity.setLoggedIn(false);
-                userCatalogue.save(userEntity);
+        for(Customer customer:customerCatalogue.findAll()){
+            if(customer.getLoggedIn()==true){
+                customer.setLoggedIn(false);
+                customerCatalogue.save(customer);
+            }
+        }
+        for(Employee employee:employeeCatalogue.findAll()){
+            if(employee.getLoggedIn()==true){
+                employee.setLoggedIn(false);
+                employeeCatalogue.save(employee);
             }
         }
         return "login";

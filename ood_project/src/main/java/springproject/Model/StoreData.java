@@ -45,6 +45,10 @@ public class StoreData {
         this.warehouse = warehouse;
     }
 
+    public Integer getId(){
+        return this.id;
+    }
+
     public Integer getAmount() {
         return amount;
     }

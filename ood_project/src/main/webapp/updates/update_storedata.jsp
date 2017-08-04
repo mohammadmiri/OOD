@@ -3,8 +3,7 @@
     <div class="container well-lg">
         <div class="row">
             <div class="col-md-offset-3 col-md-6 bg-info main-container img-rounded">
-                <form action="#" class="form-group-sm">
-                    {% csrf_token %}
+                <form action="/warehouse/submit/update_store_data/${store_data_id}" class="form-group-sm">
                     <div class="row">
                         <div class="col-md-3">
                             <input class="pull-left form-control" type="hidden" value="{{ id }}">
@@ -16,14 +15,6 @@
                         </div>
                         <div class="col-md-3">
                             <input class="pull-left form-control" type="text" name="product">
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-offset-3 col-md-3">
-                            <div class="text-font pull-right">warehouse:</div>
-                        </div>
-                        <div class="col-md-3">
-                            <input class="pull-left form-control" type="text" name="warehouse">
                         </div>
                     </div>
                     <div class="row item">

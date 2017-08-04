@@ -50,6 +50,38 @@ public class Storable {
     public Storable() {
     }
 
+    public SaleChain getDefaultSaleChain() {
+        return defaultSaleChain;
+    }
+
+    public void setDefaultSaleChain(SaleChain defaultSaleChain) {
+        this.defaultSaleChain = defaultSaleChain;
+    }
+
+    public List<SaleChain> getSaleChains() {
+        return saleChains;
+    }
+
+    public void setSaleChains(List<SaleChain> saleChains) {
+        this.saleChains = saleChains;
+    }
+
+    public SupplyChain getDefaultSupplyChain() {
+        return defaultSupplyChain;
+    }
+
+    public void setDefaultSupplyChain(SupplyChain defaultSupplyChain) {
+        this.defaultSupplyChain = defaultSupplyChain;
+    }
+
+    public List<SupplyChain> getSupplyChains() {
+        return supplyChains;
+    }
+
+    public void setSupplyChains(List<SupplyChain> supplyChains) {
+        this.supplyChains = supplyChains;
+    }
+
     public List<StoreData> getStoreData() {
         return storeData;
     }

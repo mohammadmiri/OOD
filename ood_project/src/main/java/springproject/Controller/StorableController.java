@@ -1,5 +1,6 @@
 package springproject.Controller;
 
+import org.apache.catalina.Store;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,6 +37,14 @@ public class StorableController {
         return "shows/show_warehouses";
     }
 
+    @RequestMapping("/show_existing_products/{warehouse_id}")
+    public String showExistProducts(Model model,
+                                    @PathVariable("warehouse_id") Integer id){
+        List<StoreData> storeDatas = warehouseCatalogue.findOne(id).getStoreData();
+        model.addAttribute("storeDatas", storeDatas);
+        return "shows/show_existing_products";
+    }
+
     @RequestMapping("/delete_warehouse/{id}")
     public String deleteWarehouse(@PathVariable("id") Integer id){
         warehouseCatalogue.delete(id);
@@ -52,11 +61,12 @@ public class StorableController {
                                          @RequestParam("name") String name){
         Warehouse warehouse = new Warehouse(code, name);
         warehouseCatalogue.save(warehouse);
-        return "homepage";
+        return "redirect:/home/";
     }
 
     @RequestMapping("/update_warehouse/{id}")
-    public String updateFormWarehouse(@PathVariable("id") Integer id){
+    public String updateFormWarehouse(Model model, @PathVariable("id") Integer id){
+        model.addAttribute("warehouse", warehouseCatalogue.findOne(id));
         return "updates/update_warehouse";
     }
 
@@ -65,8 +75,10 @@ public class StorableController {
                                             @RequestParam("code") Integer code,
                                             @RequestParam("name") String name){
         Warehouse warehouse = warehouseCatalogue.findOne(id);
+        warehouse.setCode(code);
+        warehouse.setName(name);
         warehouseCatalogue.save(warehouse);
-        return "homepage";
+        return "redirect:/home/";
     }
 
 
@@ -79,14 +91,27 @@ public class StorableController {
     @Autowired
     ProductCatalogue productCatalogue;
 
+    @RequestMapping("/delete_store_data/{id}")
+    public String deleteStoreData(@PathVariable("id") Integer id){
+        StoreData s = storeDataRepository.findOne(id);
+        Warehouse w = s.getWarehouse();
+        w.getStoreData().remove(s);
+        warehouseCatalogue.save(w);
+        storeDataRepository.delete(id);
+        return "redirect:/home/";
+    }
+
     @RequestMapping("/add_store_data/{warehouse_id}")
-    public String addStoreData(@PathVariable("warehouse_id") Integer id){
+    public String addStoreData(Model model,
+                               @PathVariable("warehouse_id") Integer id){
+        model.addAttribute("warehouse_id", id);
+        model.addAttribute("products", productCatalogue.findAll());
         return "adds/add_storedata";
     }
 
     @RequestMapping("/submit/add_store_data/{warehouse_id}")
     public String submitAddStoreData(@PathVariable("warehouse_id") Integer id,
-                                     @RequestParam("product") String product_name,
+                                     @RequestParam("product") int product_id,
                                      @RequestParam("amount") Integer amount,
                                      @RequestParam("minAmount") Integer minAmount,
                                      @RequestParam("maxAmount") Integer maxAmount){
@@ -96,26 +121,22 @@ public class StorableController {
         storeData.setMin(minAmount);
         Warehouse w = warehouseCatalogue.findOne(id);
         storeData.setWarehouse(w);
-        List<Product> products = (List<Product>)productCatalogue.findAll();
-        for(Product p:products) {
-            if(p.getName() == product_name) {
-                storeData.setStorable(p);
-            }
-        }
+        storeData.setStorable(productCatalogue.findOne(product_id));
         storeDataRepository.save(storeData);
         return "redirect:/home/";
     }
 
-    @RequestMapping("/update_store_data/{storedata_id")
+    @RequestMapping("/update_store_data/{store_data_id}")
     public String updateStoreData(Model model,
-                                  @PathVariable("storedata_id") Integer id){
-        
-        return "update/update_storedata";
+                                  @PathVariable("store_data_id") Integer id){
+        model.addAttribute("store_data_id", id);
+        model.addAttribute("products", productCatalogue.findAll());
+        return "updates/update_storedata";
     }
 
-    @RequestMapping("/submit/update_store_data/{warehouse_id}")
-    public String submitUpdateStoreData(@PathVariable("warehouse_id") Integer id,
-                                        @RequestParam("product") String product_name,
+    @RequestMapping("/submit/update_store_data/{store_data_id}")
+    public String submitUpdateStoreData(@PathVariable("store_data_id") Integer id,
+                                        @RequestParam("product") int product_id,
                                         @RequestParam("amount") Integer amount,
                                         @RequestParam("minAmount") Integer minAmount,
                                         @RequestParam("maxAmount") Integer maxAmount){
@@ -125,12 +146,7 @@ public class StorableController {
         storeData.setMin(minAmount);
         Warehouse w = warehouseCatalogue.findOne(id);
         storeData.setWarehouse(w);
-        List<Product> products = (List<Product>)productCatalogue.findAll();
-        for(Product p:products) {
-            if(p.getName() == product_name) {
-                storeData.setStorable(p);
-            }
-        }
+        storeData.setStorable(productCatalogue.findOne(product_id));
         storeDataRepository.save(storeData);
         return "redirect:/home/";
     }

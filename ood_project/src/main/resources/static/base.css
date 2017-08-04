@@ -1,7 +1,10 @@
-
+@font-face {
+    font-family: "Iransans";
+    src: url("irsans.ttf");
+}
 
 .text-font{
-    /*font-family: Iransans;*/
+    font-family: Iransans;
 }
 
 a{
@@ -21,11 +24,113 @@ a:hover{
     margin-top: 0.4cm;
 }
 
-.bg-green{
-    background-color: green;
+.text-bold{
+    font-weight: bold;
 }
 
-.bg-blue{
-    background-color: blue;
+
+.img-background{
+    position: absolute;
+    width: 100%;
+    height: auto;
+    opacity: 0.1;
+}
+
+
+.border-top{
+    border-top: 1px solid #eeeeee;
+}
+.border-right{
+    border-right: 1px solid #eeeeee;
+}
+.border-left{
+    border-left: 1px solid #eeeeee;
+}
+.border-bottom{
+    border-bottom: 1px solid #eeeeee;
+}
+
+.border-radius{
+    border-radius: 5px;
+}
+
+
+.margin-small-top{
+    margin-top: 5px;
+}
+.margin-small-right{
+    margin-right: 5px;
+}
+.margin-small-left{
+    margin-left: 5px;
+}
+.margin-small-bottom{
+    margin-bottom: 5px;
+}
+
+.margin-medium-top{
+    margin-top: 10px;
+}
+.margin-medium-right{
+    margin-right: 10px;
+}
+.margin-medium-left{
+    margin-left: 10px;
+}
+.margin-medium-bottom{
+    margin-bottom: 10px;
+}
+
+.margin-large-top{
+    margin-top: 15px;
+}
+.margin-large-right{
+    margin-right: 15px;
+}
+.margin-large-left{
+    margin-left: 15px;
+}
+.margin-large-bottom{
+    margin-bottom: 15px;
+}
+
+
+.padding-small-top{
+    padding-top: 5px;
+}
+.padding-small-right{
+    padding-right: 5px;
+}
+.padding-small-left{
+    padding-left: 5px;
+}
+.padding-small-bottom{
+    padding-bottom: 5px;
+}
+
+.padding-medium-top{
+    padding-top: 10px;
+}
+.padding-medium-right{
+    padding-right: 10px;
+}
+.padding-medium-left{
+    padding-left: 10px;
+}
+.padding-medium-bottom{
+    padding-bottom: 10px;
+}
+
+.padding-large-top{
+    padding-top: 15px;
+}
+.padding-large-right{
+    padding-right: 15px;
+}
+.padding-large-left{
+    padding-left: 15px;
+}
+.padding-large-bottom{
+    padding-bottom: 15px;
 }
 

@@ -1,5 +1,9 @@
 package springproject.Model;
 
+import springproject.Service.ProductionStepCatalogue;
+import springproject.Service.SaleChainCatalogue;
+import springproject.Service.SupplyChainCatalogue;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -40,4 +44,33 @@ public class Product extends Storable{
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
+
+    public void addProductionSteps(int[] indexes, ProductionStepCatalogue ps){
+        if(indexes != null) {
+            for (int i : indexes) {
+                this.getProductionSteps().add(ps.findOne(i));
+            }
+        }
+    }
+
+    public void addSupplyChains(int[] indexes, SupplyChainCatalogue sc){
+        if(indexes != null) {
+            for (int i : indexes) {
+                this.getSupplyChains().add(sc.findOne(i));
+            }
+        }
+    }
+
+    public void addSaleChains(int[] indexes, SaleChainCatalogue sc){
+        if(indexes != null) {
+            for (int i : indexes) {
+                this.getSaleChains().add(sc.findOne(i));
+            }
+        }
+    }
+
+    public String toString(){
+        return this.getName();
+    }
+
 }

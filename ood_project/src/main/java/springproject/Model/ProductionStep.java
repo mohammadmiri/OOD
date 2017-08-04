@@ -37,6 +37,10 @@ public class ProductionStep {
     @ManyToMany
     private List<Employee> peopleInvolved;
 
+    public ProductionStep(){
+
+    }
+
     public ProductionStep(Integer cost, String preCondition, String postCondition) {
         this.cost = cost;
         this.preCondition = preCondition;
@@ -105,5 +109,9 @@ public class ProductionStep {
 
     public void setPeopleInvolved(List<Employee> peopleInvolved) {
         this.peopleInvolved = peopleInvolved;
+    }
+
+    public String toString(){
+        return "id:"+this.getId();
     }
 }

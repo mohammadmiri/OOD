@@ -43,7 +43,7 @@ public class PathController {
     @RequestMapping("/delete_sale_path/{id}")
     public String deleteSalePath(@PathVariable("id") Integer id){
         saleChainCatalogue.delete(id);
-        return "homepage";
+        return "redirect:/home/";
     }
 
     @RequestMapping("/add_sale_path")
@@ -57,12 +57,12 @@ public class PathController {
                                         @RequestParam("description") String description){
         SaleChain saleChain = new SaleChain(cost, time, description);
         saleChainCatalogue.save(saleChain);
-        return "homepage";
+        return "redirect:/home/";
     }
 
     @RequestMapping("/update_sale_path/{id}")
     public String updateFormSalePath(Model model, @PathVariable("id") Integer id){
-        model.addAttribute("id", id);
+        model.addAttribute("chain", saleChainCatalogue.findOne(id));
         return "updates/update_sale_path";
     }
 
@@ -76,7 +76,7 @@ public class PathController {
         saleChain.setDescription(description);
         saleChain.setTime(time);
         saleChainCatalogue.save(saleChain);
-        return "homepage";
+        return "redirect:/home/";
     }
 
     /*** supply path ***/
@@ -94,7 +94,7 @@ public class PathController {
     @RequestMapping("delete_supply_path/{id}")
     public String deleteSupplyPath(@PathVariable("id") Integer id){
         supplyChainCatalogue.delete(id);
-        return "homepage";
+        return "redirect:/home/";
     }
 
     @RequestMapping("/add_supply_path")
@@ -108,12 +108,12 @@ public class PathController {
                                         @RequestParam("description") String description){
         SupplyChain supplyChain = new SupplyChain(cost, time, description);
         supplyChainCatalogue.save(supplyChain);
-        return "homepage";
+        return "redirect:/home/";
     }
 
     @RequestMapping("/update_supply_path/{id}")
     public String updateSupplyPath(Model model, @PathVariable("id") Integer id){
-        model.addAttribute("id", id);
+        model.addAttribute("chain", supplyChainCatalogue.findOne(id));
         return "updates/update_supply_path";
     }
 
@@ -127,7 +127,7 @@ public class PathController {
         supplyChain.setTime(time);
         supplyChain.setDescription(description);
         supplyChainCatalogue.save(supplyChain);
-        return "homepage";
+        return "redirect:/home/";
     }
 
     /*** source ***/
@@ -146,7 +146,7 @@ public class PathController {
     @RequestMapping("/delete_source/{id}")
     public String deleteSource(@PathVariable("id") Integer id){
         sourceCatalogue.delete(id);
-        return "homepage";
+        return "redirect:/home/";
     }
 
     @RequestMapping("/add_source")
@@ -159,14 +159,13 @@ public class PathController {
                                   @RequestParam("address") String address){
         Source source = new Source(name, address);
         sourceCatalogue.save(source);
-        return "homepage";
+        return "redirect:/home/";
     }
 
     @RequestMapping("/update_source/{id}")
     public String updateFormSource(Model model,
                                    @PathVariable("id") Integer id){
-        Source source = sourceCatalogue.findOne(id);
-        model.addAttribute("source",source);
+        model.addAttribute("source", sourceCatalogue.findOne(id));
         return "updates/update_source";
     }
 
@@ -178,7 +177,7 @@ public class PathController {
         source.setAddress(address);
         source.setName(name);
         sourceCatalogue.save(source);
-        return "homepage";
+        return "redirect:/home/";
     }
 
 }

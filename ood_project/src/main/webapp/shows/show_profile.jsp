@@ -45,11 +45,11 @@
                             <div class="row item well-sm bg-info">
                                 <div class="col-md-1 col-md-offset-1 text-center">${item.id}</div>
                                 <div class="col-md-1 col-md-offset-1 text-center">${item.totalCost}</div>
-                                <a href=""><button class="btn btn-danger col-md-1 col-md-offset-1">delete</button></a>
-                                <a href=""><button class="btn btn-primary col-md-1 col-md-offset-1">update</button> </a>
                                 <c:forEach items="${item.products}" var="product">
                                     <p>${product.name}</p>
                                 </c:forEach>
+                                <a href="/product/delete_product_order/${item.id}"><button class="btn btn-danger col-md-1 col-md-offset-1">delete</button></a>
+                                <a href="/product/update_product_order/${item.id}"><button class="btn btn-primary col-md-1 col-md-offset-1">update</button> </a>
                             </div>
                         </c:forEach>
                         <div class="row item">

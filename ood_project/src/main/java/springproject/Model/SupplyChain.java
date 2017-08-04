@@ -59,4 +59,8 @@ public class SupplyChain {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public String toString(){
+        return "id:"+this.getId()+" cost:"+this.getCost()+" time:"+this.getTime();
+    }
 }

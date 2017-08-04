@@ -78,4 +78,8 @@ public class Source {
     public List<ComponentOrder> getAllComponentOrder(){
         return this.componentOrders;
     }
+
+    public String toString(){
+        return this.getName();
+    }
 }

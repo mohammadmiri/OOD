@@ -42,7 +42,7 @@ public class ProductController {
         commentCatalogue.save(comment);
         product.getComments().add(comment);
         productCatalogue.save(product);
-        return "homepage";
+        return "redirect:/home/";
     }
 
     @RequestMapping("/update_comment/{id}")
@@ -59,6 +59,12 @@ public class ProductController {
 
     @Autowired
     ProductCatalogue productCatalogue;
+
+    @Autowired
+    SaleChainCatalogue saleChainCatalogue;
+
+    @Autowired
+    SupplyChainCatalogue supplyChainCatalogue;
 
     @RequestMapping("/show_products")
     public String showProducts(Model model){
@@ -79,33 +85,45 @@ public class ProductController {
     @RequestMapping("/delete_product/{id}")
     public String deleteProduct(@PathVariable("id") Integer id){
         productCatalogue.delete(id);
-        return "homepage";
+        return "redirect:/home/";
     }
 
     @RequestMapping("/add_product")
-    public String addProduct(){
+    public String addProduct(Model model){
+        model.addAttribute("supplyChains", supplyChainCatalogue.findAll());
+        model.addAttribute("saleChains", saleChainCatalogue.findAll());
+        model.addAttribute("productionSteps", productionStepCatalogue.findAll());
         return "adds/add_product";
     }
 
     @RequestMapping("/submit/add_product")
     public String submitAddProduct(@RequestParam("name") String name,
-                                       @RequestParam("price") Integer price,
-                                       @RequestParam("description") String description,
-                                       @RequestParam("productionSteps") String productionStepsId){
+                                   @RequestParam("price") Integer price,
+                                   @RequestParam("description") String description,
+                                   @RequestParam("default_supplyChain") int defaultSupplyChain,
+                                   @RequestParam(value="supplyChains", required = false) int[] supplyChains,
+                                   @RequestParam("default_saleChain") int default_saleChain,
+                                   @RequestParam(value = "saleChains", required = false) int[] saleChains,
+                                   @RequestParam(value = "productionSteps", required = false) int[] productionSteps){
+        System.out.println("in function");
         Product product = new Product(name, price, description);
-        product.getProductionSteps().clear();
-        for(String id:productionStepsId.split(" ")){
-            if(id!="") {
-                product.getProductionSteps().add(productionStepCatalogue.findOne(Integer.parseInt(id)));
-            }
-        }
+        SupplyChain supplyChain = supplyChainCatalogue.findOne(defaultSupplyChain);
+        product.setDefaultSupplyChain(supplyChain);
+        SaleChain saleChain = saleChainCatalogue.findOne(default_saleChain);
+        product.setDefaultSaleChain(saleChain);
+        product.addProductionSteps(productionSteps, productionStepCatalogue);
+        product.addSaleChains(saleChains, saleChainCatalogue);
+        product.addSupplyChains(supplyChains, supplyChainCatalogue);
         productCatalogue.save(product);
-        return "homepage";
+        return "redirect:/home/";
     }
 
     @RequestMapping("/update_product/{id}")
     public String updateProduct(Model model, @PathVariable("id") Integer id){
-        model.addAttribute("id", id);
+        model.addAttribute("supplyChains", supplyChainCatalogue.findAll());
+        model.addAttribute("saleChains", saleChainCatalogue.findAll());
+        model.addAttribute("productionSteps", productionStepCatalogue.findAll());
+        model.addAttribute("product", productCatalogue.findOne(id));
         return "updates/update_product";
     }
 
@@ -114,16 +132,24 @@ public class ProductController {
                                       @RequestParam("name") String name,
                                       @RequestParam("price") Integer price,
                                       @RequestParam("description") String description,
-                                      @RequestParam("productionSteps") String productionStepsId){
+                                      @RequestParam("default_supplyChain") int defaultSupplyChain,
+                                      @RequestParam(value="supplyChains", required = false) int[] supplyChains,
+                                      @RequestParam("default_saleChain") int default_saleChain,
+                                      @RequestParam(value = "saleChains", required = false) int[] saleChains,
+                                      @RequestParam(value = "productionSteps", required = false) int[] productionSteps){
         Product product = productCatalogue.findOne(id);
-        product.getProductionSteps();
-        for(String Id:productionStepsId.split(" ")){
-            if(Id!="") {
-                product.getProductionSteps().add(productionStepCatalogue.findOne(Integer.parseInt(Id)));
-            }
-        }
+        product.setName(name);
+        product.setPrice(price);
+        product.setDescription(description);
+        SupplyChain supplyChain = supplyChainCatalogue.findOne(defaultSupplyChain);
+        product.setDefaultSupplyChain(supplyChain);
+        SaleChain saleChain = saleChainCatalogue.findOne(default_saleChain);
+        product.setDefaultSaleChain(saleChain);
+        product.addProductionSteps(productionSteps, productionStepCatalogue);
+        product.addSaleChains(saleChains, saleChainCatalogue);
+        product.addSupplyChains(supplyChains, supplyChainCatalogue);
         productCatalogue.save(product);
-        return "homepage";
+        return "redirect:/home/";
     }
 
     @RequestMapping("/advanceSearch")
@@ -159,31 +185,37 @@ public class ProductController {
     @Autowired
     ProductionStepCatalogue productionStepCatalogue;
 
-    @RequestMapping("/add_productionStep")
+    @RequestMapping("/add_production_step")
     public String addFormProductionStep(){
-        return "forms/AddFormProductionStep";
+        return "adds/add_production_step";
     }
 
-    @RequestMapping("submit/add_productionStep")
+    @RequestMapping("submit/add_production_step")
     public String submitAddFormProductionStep(@RequestParam("cost") Integer cost,
                                               @RequestParam("preCondition") String preCondition,
                                               @RequestParam("postCondition") String postCondition){
         ProductionStep productionStep = new ProductionStep(cost, preCondition, postCondition);
+        productionStepCatalogue.save(productionStep);
+        return "redirect:/home/";
+    }
+
+    @RequestMapping("/update_productionStep/{id}")
+    public String updateFormProductionStep(Model model, @PathVariable("id") Integer id){
+        model.addAttribute("productionStep", productionStepCatalogue.findOne(id));
+        return "updates/update_production_step";
+    }
+
+    @RequestMapping("/submit/update_productionStep/{id}")
+    public String submitUpdateFormProductionStep(@PathVariable("id") Integer id ,
+                                                 @RequestParam("cost") Integer cost,
+                                                 @RequestParam("preCondition") String preCondition,
+                                                 @RequestParam("postCondition") String postCondition){
+        ProductionStep productionStep = productionStepCatalogue.findOne(id);
         productionStep.setCost(cost);
         productionStep.setPreCondition(preCondition);
         productionStep.setPostCondition(postCondition);
         productionStepCatalogue.save(productionStep);
-        return "homepage";
-    }
-
-    @RequestMapping("/update_productionStep")
-    public String updateFormProductionStep(){
-        return "";
-    }
-
-    @RequestMapping("/submit/update_productionStep")
-    public String submitUpdateFormProductionStep(){
-        return "";
+        return "redirect:/home/";
     }
 
     /*** component ***/
@@ -202,11 +234,11 @@ public class ProductController {
     @RequestMapping("/delete_component/{id}")
     public String deleteComponent(@PathVariable("id") Integer id){
         componentCatalogue.delete(id);
-        return "homepage";
+        return "redirect:/home/";
     }
 
     @RequestMapping("/add_component")
-    public String addComponent(){
+    public String addComponent(Model model){
         return "adds/add_component";
     }
 
@@ -215,16 +247,13 @@ public class ProductController {
                                          @RequestParam("price") Integer price,
                                          @RequestParam("description") String description){
         Component component = new Component(name, price, description);
-        component.setDescription(description);
-        component.setName(name);
-        component.setPrice(price);
         componentCatalogue.save(component);
-        return "homepage";
+        return "redirect:/home/";
     }
 
     @RequestMapping("/update_component/{id}")
     public String updateFormComponent(Model model, @PathVariable("id") Integer id){
-        model.addAttribute("id", id);
+        model.addAttribute("component", componentCatalogue.findOne(id));
         return "updates/update_component";
     }
 
@@ -238,8 +267,7 @@ public class ProductController {
         component.setPrice(price);
         component.setDescription(description);
         componentCatalogue.save(component);
-        System.out.println("in update func"+name+" "+price+" "+description);
-        return "homepage";
+        return "redirect:/home/";
     }
 
 
@@ -261,68 +289,124 @@ public class ProductController {
     @RequestMapping("/delete_product_order")
     public String deleteProductOrders(@PathVariable("id") Integer id){
         productOrderCatalogue.delete(id);
-        return "homepage";
+        return "redirect:/home/";
     }
 
     @RequestMapping("/add_product_order")
-    public String addProductOrder(){
+    public String addFormProductOrder(Model model){
+        model.addAttribute("products", productCatalogue.findAll());
         return "adds/add_product_order";
     }
 
 
     @RequestMapping("/submit/add_product_order")
-    public String submitAddProductOrder(@RequestParam("totalCost") Integer totalCost,
+    public String submitAddFormProductOrder(@RequestParam("totalCost") Integer totalCost,
                                          @RequestParam("date") String date,
-                                         @RequestParam("products") String productsName,
-                                         @RequestParam("requirements") String requirementsName){
+                                         @RequestParam("products") int[] products,
+                                         @RequestParam("requirements") String requirement){
         ProductOrder order = new ProductOrder(totalCost, new Date());
-        for(Product product:(List<Product>) productCatalogue.findAll()){
-            for(String productName:productsName.split(",")){
-                if(productName != "" && productName.equals(product.getName())){
-                    order.getProducts().add(product);
-                }
-            }
-        }
-        Requirement requirement = new Requirement();
-        requirement.setDescription(requirementsName);
-        requirementRepository.save(requirement);
-        order.getRequirements().add(requirement);
+        order.addProducts(products, productCatalogue);
+        order.setRequirements(requirement);
         Customer customer = customerCatalogue.getLoggedInCustomer();
-        order.setCustomer(customer);
+//        order.setCustomer(customer);
         productOrderCatalogue.save(order);
-        return "homepage";
+        return "redirect:/home/";
     }
 
-    @RequestMapping("/update_product_order")
-    public String updateProductOrder(){
-        return "updates/ProductOrder";
+    @RequestMapping("/update_product_order/{id}")
+    public String updateProductOrder(Model model,
+                                     @PathVariable("id") Integer id){
+        model.addAttribute("productOrder", productCatalogue.findOne(id));
+        return "updates/update_product_order";
     }
 
 
-    @RequestMapping("/submit/update_product_order")
-    public String submitUpdateProductOrder(@RequestParam("totalCost") Integer totalCost,
-                                         @RequestParam("date") String date,
-                                         @RequestParam("products") String productsName,
-                                         @RequestParam("requirements") String requirementsName){
-        ProductOrder order = new ProductOrder(totalCost, new Date());
-        for(Product product:(List<Product>) productCatalogue.findAll()){
-            for(String productName:productsName.split(",")){
-                if(productName != "" && productName.equals(product.getName())){
-                    order.getProducts().add(product);
-                }
-            }
-        }
-        Requirement requirement = new Requirement();
-        requirement.setDescription(requirementsName);
-        requirementRepository.save(requirement);
-        order.getRequirements().add(requirement);
+    @RequestMapping("/submit/update_product_order/{id}")
+    public String submitUpdateProductOrder(@PathVariable("id") Integer id,
+                                           @RequestParam("totalCost") Integer totalCost,
+                                           @RequestParam("date") String date,
+                                           @RequestParam("products") int[] products,
+                                           @RequestParam("requirements") String requirement){
+        ProductOrder order = productOrderCatalogue.findOne(id);
+        order.addProducts(products, productCatalogue);
+        order.setRequirements(requirement);
         productOrderCatalogue.save(order);
-        return "homepage";
+        return "redirect:/home/";
     }
 
     /*** requirement ***/
 
     @Autowired
     RequirementRepository requirementRepository;
+
+    /***  component order  ***/
+
+    @Autowired
+    ComponentOrderCatalogue componentOrderCatalogue;
+
+    @Autowired
+    SourceCatalogue sourceCatalogue;
+
+    @RequestMapping("/show_component_orders")
+    public String showComponentOrders(Model model){
+        model.addAttribute( "componentOrders", (List<ComponentOrder>)componentOrderCatalogue.findAll());
+        return "shows/show_component_orders";
+    }
+
+    @RequestMapping("delete_component_order/{id}")
+    public String deleteComponentOrders(@PathVariable("id") Integer id){
+        componentOrderCatalogue.delete(id);
+        return "redirect:/home/";
+    }
+
+    @RequestMapping("/add_component_order")
+    public String addFormComponentOrder(Model model){
+        model.addAttribute("components", componentCatalogue.findAll());
+        model.addAttribute("sources", sourceCatalogue.findAll());
+        return "adds/add_component_order";
+    }
+
+    @RequestMapping("/submit/add_component_order")
+    public String submitAddFormComponentOrder(@RequestParam("date") String date,
+                                              @RequestParam("amount") Integer amount ,
+                                              @RequestParam(value = "components", required = false) int[] components,
+                                              @RequestParam(value = "source", required = false) int source_id
+                                              ){
+        ComponentOrder order = new ComponentOrder();
+        Source source = sourceCatalogue.findOne(source_id);
+        order.setSource(source);
+        order.addComponents(components, componentCatalogue);
+        order.setAmount(amount);
+        order.setDate(new Date());
+        componentOrderCatalogue.save(order);
+        return "redirect:/home/";
+    }
+
+    @RequestMapping("/update_component_order/{id}")
+    public String updateComponentOrder(Model model,
+                                       @PathVariable("id") Integer id){
+        model.addAttribute("order", componentOrderCatalogue.findOne(id));
+        model.addAttribute("components", componentCatalogue.findAll());
+        model.addAttribute("sources", sourceCatalogue.findAll());
+        return "updates/update_component_order";
+    }
+
+    @RequestMapping("/submit/update_component_order/{id}")
+    public String submitComponentOrder(@PathVariable("id") Integer id,
+                                       @RequestParam("date") String date,
+                                       @RequestParam("amount") Integer amount ,
+                                       @RequestParam(value = "components", required = false) int[] components,
+                                       @RequestParam(value = "source", required = false) int source_id
+                                       ){
+        ComponentOrder order = componentOrderCatalogue.findOne(id);
+        Source source = sourceCatalogue.findOne(source_id);
+        order.setSource(source);
+        order.addComponents(components, componentCatalogue);
+        order.setAmount(amount);
+        order.setDate(new Date());
+        componentOrderCatalogue.save(order);
+        return "redirect:/home/";
+    }
+
 
 }
