@@ -11,6 +11,7 @@
         </c:forEach>
         <% if(is_selected == false){ %>
             <option value=${item.id}>${item.toString()}</option>
-        <% } %>
+        <% }
+        else{ is_selected = false; } %>
     </c:forEach>
 </select>

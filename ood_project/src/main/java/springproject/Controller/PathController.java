@@ -61,13 +61,13 @@ public class PathController {
     }
 
     @RequestMapping("/update_sale_path/{id}")
-    public String updateFormSalePath(Model model, @PathVariable("id") Integer id){
+    public String updateSalePath(Model model, @PathVariable("id") Integer id){
         model.addAttribute("chain", saleChainCatalogue.findOne(id));
         return "updates/update_sale_path";
     }
 
     @RequestMapping("/submit/update_sale_path/{id}")
-    public String submitUpdateFormSalePath(@PathVariable("id") Integer id,
+    public String submitUpdateSalePath(@PathVariable("id") Integer id,
                                            @RequestParam("cost") Integer cost,
                                            @RequestParam("time") Integer time,
                                            @RequestParam("description") String description){
@@ -76,7 +76,7 @@ public class PathController {
         saleChain.setDescription(description);
         saleChain.setTime(time);
         saleChainCatalogue.save(saleChain);
-        return "redirect:/home/";
+        return "redirect:/path/show_sale_paths";
     }
 
     /*** supply path ***/
@@ -177,7 +177,7 @@ public class PathController {
         source.setAddress(address);
         source.setName(name);
         sourceCatalogue.save(source);
-        return "redirect:/home/";
+        return "redirect:/path/show_sources";
     }
 
 }

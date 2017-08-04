@@ -3,10 +3,10 @@
 
 <select name="${requestScope.input_name}" id="${requestScope.id_name}" class="form-control">
     <c:forEach var="item" items="${requestScope.list}">
-        <c:if test="${item.id==active.id}">
+        <c:if test="${item.id==selected_item.id}">
             <option selected value="${item.id}">${item.toString()}</option>
         </c:if>
-        <c:if test="${item.id!=active.id}">
+        <c:if test="${item.id!=selected_item.id}">
             <option value="${item.id}">${item.toString()}</option>
         </c:if>
     </c:forEach>

@@ -145,11 +145,14 @@ public class ProductController {
         product.setDefaultSupplyChain(supplyChain);
         SaleChain saleChain = saleChainCatalogue.findOne(default_saleChain);
         product.setDefaultSaleChain(saleChain);
+        product.getProductionSteps().clear();
         product.addProductionSteps(productionSteps, productionStepCatalogue);
+        product.getSaleChains().clear();
         product.addSaleChains(saleChains, saleChainCatalogue);
+        product.getSupplyChains().clear();
         product.addSupplyChains(supplyChains, supplyChainCatalogue);
         productCatalogue.save(product);
-        return "redirect:/home/";
+        return "redirect:/product/show_products";
     }
 
     @RequestMapping("/advanceSearch")
@@ -199,13 +202,13 @@ public class ProductController {
         return "redirect:/home/";
     }
 
-    @RequestMapping("/update_productionStep/{id}")
+    @RequestMapping("/update_production_step/{id}")
     public String updateFormProductionStep(Model model, @PathVariable("id") Integer id){
         model.addAttribute("productionStep", productionStepCatalogue.findOne(id));
         return "updates/update_production_step";
     }
 
-    @RequestMapping("/submit/update_productionStep/{id}")
+    @RequestMapping("/submit/update_production_step/{id}")
     public String submitUpdateFormProductionStep(@PathVariable("id") Integer id ,
                                                  @RequestParam("cost") Integer cost,
                                                  @RequestParam("preCondition") String preCondition,
@@ -267,7 +270,7 @@ public class ProductController {
         component.setPrice(price);
         component.setDescription(description);
         componentCatalogue.save(component);
-        return "redirect:/home/";
+        return "redirect:/product/show_components";
     }
 
 
@@ -316,14 +319,14 @@ public class ProductController {
     @RequestMapping("/update_product_order/{id}")
     public String updateProductOrder(Model model,
                                      @PathVariable("id") Integer id){
-        model.addAttribute("productOrder", productCatalogue.findOne(id));
+        model.addAttribute("order", productOrderCatalogue.findOne(id));
+        model.addAttribute("products", productCatalogue.findAll());
         return "updates/update_product_order";
     }
 
 
     @RequestMapping("/submit/update_product_order/{id}")
     public String submitUpdateProductOrder(@PathVariable("id") Integer id,
-                                           @RequestParam("totalCost") Integer totalCost,
                                            @RequestParam("date") String date,
                                            @RequestParam("products") int[] products,
                                            @RequestParam("requirements") String requirement){
@@ -331,7 +334,7 @@ public class ProductController {
         order.addProducts(products, productCatalogue);
         order.setRequirements(requirement);
         productOrderCatalogue.save(order);
-        return "redirect:/home/";
+        return "redirect:/user/show_profile";
     }
 
     /*** requirement ***/
@@ -405,7 +408,7 @@ public class ProductController {
         order.setAmount(amount);
         order.setDate(new Date());
         componentOrderCatalogue.save(order);
-        return "redirect:/home/";
+        return "redirect:/product/show_component_orders";
     }
 
 

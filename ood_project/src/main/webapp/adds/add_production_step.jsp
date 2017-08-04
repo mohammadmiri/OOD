@@ -38,12 +38,12 @@
 
 
 <div class="panel panel-default text-bold margin-large-top">
-    <div class="panel-heading text-center">add comment</div>
+    <div class="panel-heading text-center">add production step</div>
     <div class="panel-body padding-large-top">
         <form action="/product/submit/add_production_step" method="get">
             <div class="form-group">
                 <label>Cost:</label>
-                <input type="text" class="form-control" name="name">
+                <input type="text" class="form-control" name="cost">
             </div>
             <div class="form-group">
                 <label>PreCondition:</label>

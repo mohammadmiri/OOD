@@ -70,7 +70,7 @@ public class StorableController {
         return "updates/update_warehouse";
     }
 
-    @RequestMapping("/submit/add_warehouse/{id}")
+    @RequestMapping("/submit/update_warehouse/{id}")
     public String submitUpdateFormWarehouse(@PathVariable("id") Integer id,
                                             @RequestParam("code") Integer code,
                                             @RequestParam("name") String name){
@@ -78,7 +78,7 @@ public class StorableController {
         warehouse.setCode(code);
         warehouse.setName(name);
         warehouseCatalogue.save(warehouse);
-        return "redirect:/home/";
+        return "redirect:/warehouse/show_warehouses";
     }
 
 
@@ -129,7 +129,7 @@ public class StorableController {
     @RequestMapping("/update_store_data/{store_data_id}")
     public String updateStoreData(Model model,
                                   @PathVariable("store_data_id") Integer id){
-        model.addAttribute("store_data_id", id);
+        model.addAttribute("store_data", storeDataRepository.findOne(id));
         model.addAttribute("products", productCatalogue.findAll());
         return "updates/update_storedata";
     }
@@ -144,8 +144,6 @@ public class StorableController {
         storeData.setAmount(amount);
         storeData.setMax(maxAmount);
         storeData.setMin(minAmount);
-        Warehouse w = warehouseCatalogue.findOne(id);
-        storeData.setWarehouse(w);
         storeData.setStorable(productCatalogue.findOne(product_id));
         storeDataRepository.save(storeData);
         return "redirect:/home/";

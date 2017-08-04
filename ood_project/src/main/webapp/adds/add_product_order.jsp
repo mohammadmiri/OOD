@@ -55,7 +55,7 @@
         <form action="/product/submit/add_product_order" method="get">
             <div class="form-group">
                 <label>Date:</label>
-                <input type="text" class="form-control" name="name">
+                <input type="text" class="form-control" name="date">
             </div>
             <div class="form-group">
                 <label>Products:</label>
@@ -65,7 +65,7 @@
             </div>
             <div class="form-group">
                 <label>Requirement:</label>
-                <input type="text" class="form-control" name="requirement">
+                <input type="text" class="form-control" name="requirements">
             </div>
             <button type="submit" class="btn btn-success">submit</button>
         </form>

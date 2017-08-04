@@ -57,14 +57,14 @@
 <div class="panel panel-default text-bold margin-large-top">
     <div class="panel-heading text-center">add comment</div>
     <div class="panel-body padding-large-top">
-        <form action="/submit/add_component" method="get">
+        <form action="/product/submit/add_component_order" method="get">
             <div class="form-group">
                 <label for="t1">Date:</label>
-                <input type="text" class="form-control" id="t1" name="name">
+                <input type="text" class="form-control" id="t1" name="date">
             </div>
             <div class="form-group">
                 <label for="t2">Amount:</label>
-                <input type="text" class="form-control" id="t2" name="price">
+                <input type="text" class="form-control" id="t2" name="amount">
             </div>
             <div class="form-group">
                 <label>Components:</label>
@@ -73,7 +73,7 @@
                 <jsp:include page="../select_multiple_html.jsp" />
             </div>
             <div class="form-group">
-                <label >Sources:</label>
+                <label >Source:</label>
                 <c:set var="list" value="${sources}" scope="request"/>
                 <c:set var="input_name" value="source" scope="request"/>
                 <jsp:include page="../select_html.jsp" />

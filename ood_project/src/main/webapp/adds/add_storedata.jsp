@@ -47,7 +47,7 @@
 
 
 <div class="panel panel-default text-bold margin-large-top">
-    <div class="panel-heading text-center">add comment</div>
+    <div class="panel-heading text-center">add store data</div>
     <div class="panel-body padding-large-top">
         <form action="/warehouse/submit/add_store_data/${warehouse_id}" method="get">
             <div class="form-group">
@@ -58,15 +58,15 @@
             </div>
             <div class="form-group">
                 <label>Amount:</label>
-                <input type="text" class="form-control" name="price">
+                <input type="text" class="form-control" name="amount">
             </div>
             <div class="form-group">
                 <label>Min Amount:</label>
-                <input type="text" class="form-control" name="description">
+                <input type="text" class="form-control" name="minAmount">
             </div>
             <div class="form-group">
                 <label>Max Amount:</label>
-                <input type="text" class="form-control" name="description">
+                <input type="text" class="form-control" name="maxAmount">
             </div>
             <button type="submit" class="btn btn-success">submit</button>
         </form>

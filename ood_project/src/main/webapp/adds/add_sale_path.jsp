@@ -37,7 +37,7 @@
     <%--</div>--%>
 
 <div class="panel panel-default text-bold margin-large-top">
-    <div class="panel-heading text-center">add comment</div>
+    <div class="panel-heading text-center">add sale chain</div>
     <div class="panel-body padding-large-top">
         <form action="/path/submit/add_sale_path" method="get">
             <div class="form-group">

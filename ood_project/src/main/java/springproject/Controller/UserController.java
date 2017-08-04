@@ -85,7 +85,7 @@ public class UserController {
         employee.setFirstName(firstName);
         employee.setLastName(lastName);
         employeeCatalogue.save(employee);
-        return "redirect:/home/";
+        return "redirect:/user/show_employees";
     }
 
 
@@ -101,13 +101,7 @@ public class UserController {
     @RequestMapping("/show_profile")
     public String showProfile(Model model){
         System.out.println("in show profile");
-        List<Customer> customers = (List<Customer>) customerCatalogue.findAll();
-        Customer customer = null;
-        for(Customer c:customers){
-            if(c.getLoggedIn() == true) {
-                customer = c;
-            }
-        }
+        Customer customer = ((List<Customer>) customerCatalogue.findAll()).get(0);
         List<ProductOrder> orders = customer.getProductOrders();
         model.addAttribute("customer", customer);
         model.addAttribute("orders", orders);
