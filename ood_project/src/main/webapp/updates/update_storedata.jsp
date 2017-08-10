@@ -63,15 +63,15 @@
             </div>
             <div class="form-group">
                 <label>Amount:</label>
-                <input type="text" class="form-control" name="amount" ${store_data.amount}>
+                <input type="text" class="form-control" name="amount" value="${store_data.amount}">
             </div>
             <div class="form-group">
                 <label>Min Amount:</label>
-                <input type="text" class="form-control" name="minAmount" ${store_data.min}>
+                <input type="text" class="form-control" name="minAmount" value="${store_data.min}">
             </div>
             <div class="form-group">
                 <label>Max Amount:</label>
-                <input type="text" class="form-control" name="maxAmount" ${store_data.max}>
+                <input type="text" class="form-control" name="maxAmount" value="${store_data.max}">
             </div>
             <button type="submit" class="btn btn-success">submit</button>
         </form>

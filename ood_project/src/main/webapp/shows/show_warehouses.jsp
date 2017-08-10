@@ -43,7 +43,7 @@
                     <td class="text-center">${item.code}</td>
                     <td class="text-center"><a href="/warehouse/update_warehouse/${item.id}" class="btn btn-primary">update</a></td>
                     <td class="text-center"><a href="/warehouse/delete_warehouse/${item.id}" class="btn btn-danger">delete</a></td>
-                    <td class="text-center"><a href="/warehouse/show_existing_products/${item.id}" class="btn btn-info">existing items</a></td>
+                    <td class="text-center"><a href="/warehouse/show_store_data/${item.id}" class="btn btn-info">show items</a></td>
                 </tr>
             </c:forEach>
             </tbody>

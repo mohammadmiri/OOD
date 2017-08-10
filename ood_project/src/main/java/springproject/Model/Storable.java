@@ -1,6 +1,10 @@
 package springproject.Model;
 
+import org.springframework.data.repository.CrudRepository;
+import springproject.Service.SaleChainCatalogue;
+
 import javax.persistence.*;
+import javax.validation.constraints.Null;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -120,5 +124,13 @@ public class Storable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void deleteSaleChain(Integer id, SaleChainCatalogue sc, CrudRepository<Storable, Integer> crudRepository){
+        if(this.defaultSaleChain.getId() == id){
+            this.setDefaultSaleChain(null);
+            this.getSaleChains().remove(sc.findOne(id));
+            crudRepository.save(this);
+        }
     }
 }

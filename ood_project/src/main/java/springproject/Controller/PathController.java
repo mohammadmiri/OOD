@@ -43,7 +43,7 @@ public class PathController {
     @RequestMapping("/delete_sale_path/{id}")
     public String deleteSalePath(@PathVariable("id") Integer id){
         saleChainCatalogue.delete(id);
-        return "redirect:/home/";
+        return "redirect:/path/show_sale_paths";
     }
 
     @RequestMapping("/add_sale_path")
@@ -57,7 +57,7 @@ public class PathController {
                                         @RequestParam("description") String description){
         SaleChain saleChain = new SaleChain(cost, time, description);
         saleChainCatalogue.save(saleChain);
-        return "redirect:/home/";
+        return "redirect:/path/show_sale_paths";
     }
 
     @RequestMapping("/update_sale_path/{id}")
@@ -94,7 +94,7 @@ public class PathController {
     @RequestMapping("delete_supply_path/{id}")
     public String deleteSupplyPath(@PathVariable("id") Integer id){
         supplyChainCatalogue.delete(id);
-        return "redirect:/home/";
+        return "redirect:/path/show_supply_paths";
     }
 
     @RequestMapping("/add_supply_path")
@@ -108,7 +108,7 @@ public class PathController {
                                         @RequestParam("description") String description){
         SupplyChain supplyChain = new SupplyChain(cost, time, description);
         supplyChainCatalogue.save(supplyChain);
-        return "redirect:/home/";
+        return "redirect:/path/show_supply_paths";
     }
 
     @RequestMapping("/update_supply_path/{id}")
@@ -127,7 +127,7 @@ public class PathController {
         supplyChain.setTime(time);
         supplyChain.setDescription(description);
         supplyChainCatalogue.save(supplyChain);
-        return "redirect:/home/";
+        return "redirect:/path/show_supply_paths";
     }
 
     /*** source ***/
@@ -137,7 +137,6 @@ public class PathController {
 
     @RequestMapping("/show_sources")
     public String showSources(Model model){
-        System.out.println("in show sources");
         List<Source> sources = (List<Source>)sourceCatalogue.findAll();
         model.addAttribute("sources", sources);
         return "shows/show_sources";
@@ -146,7 +145,7 @@ public class PathController {
     @RequestMapping("/delete_source/{id}")
     public String deleteSource(@PathVariable("id") Integer id){
         sourceCatalogue.delete(id);
-        return "redirect:/home/";
+        return "redirect:/path/show_sources";
     }
 
     @RequestMapping("/add_source")
@@ -159,7 +158,7 @@ public class PathController {
                                   @RequestParam("address") String address){
         Source source = new Source(name, address);
         sourceCatalogue.save(source);
-        return "redirect:/home/";
+        return "redirect:/path/show_sources";
     }
 
     @RequestMapping("/update_source/{id}")

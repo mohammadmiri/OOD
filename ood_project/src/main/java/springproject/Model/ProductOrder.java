@@ -60,6 +60,7 @@ public class ProductOrder extends OrderEntity {
 
     public void addProducts(int[] indexes, ProductCatalogue p){
         if(indexes!=null){
+            this.getProducts().clear();
             for(int i:indexes){
                 this.getProducts().add(p.findOne(i));
             }

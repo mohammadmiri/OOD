@@ -97,7 +97,7 @@
 
 
 <div class="panel panel-default text-bold margin-large-top">
-    <div class="panel-heading text-center">add comment</div>
+    <div class="panel-heading text-center">add product</div>
     <div class="panel-body padding-large-top">
         <form action="/product/submit/add_product" method="get">
             <div class="form-group">

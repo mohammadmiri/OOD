@@ -24,7 +24,7 @@
 
 
 <div class="panel panel-default margin-large-top">
-    <div class="panel-heading text-center text-bold">all component orders</div>
+    <div class="panel-heading text-center text-bold">all components orders</div>
     <div class="panel-body">
         <table class="table table-hover table-striped">
             <thead>

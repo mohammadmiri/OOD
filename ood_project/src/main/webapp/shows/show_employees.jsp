@@ -26,7 +26,7 @@
 
 
 <div class="panel panel-default margin-large-top">
-    <div class="panel-heading text-center text-bold">all components</div>
+    <div class="panel-heading text-center text-bold">all employees</div>
     <div class="panel-body">
         <table class="table table-hover table-striped">
             <thead>

@@ -18,7 +18,7 @@ import java.util.List;
 public class ComponentOrder extends OrderEntity {
 
     @ManyToMany
-    private List<Component> component;
+    private List<Component> components;
 
     @Column
     private Integer amount;
@@ -35,15 +35,15 @@ public class ComponentOrder extends OrderEntity {
     public ComponentOrder() {
     }
 
-    public void setComponent(List<Component> component) {
-        this.component = component;
+    public void setComponents(List<Component> components) {
+        this.components = components;
     }
 
-    public List<Component> getComponent() {
-        if(this.component == null){
-            this.component = new ArrayList<>();
+    public List<Component> getComponents() {
+        if(this.components == null){
+            this.components = new ArrayList<>();
         }
-        return component;
+        return components;
     }
 
     public Integer getAmount() {
@@ -65,7 +65,7 @@ public class ComponentOrder extends OrderEntity {
     public void addComponents(int[] indexes, ComponentCatalogue c){
         if(indexes != null){
             for(int i:indexes){
-                this.getComponent().add(c.findOne(i));
+                this.getComponents().add(c.findOne(i));
             }
         }
     }

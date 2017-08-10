@@ -35,7 +35,7 @@ public class UserController {
     @RequestMapping("/delete_employee/{id}")
     public String deleteEmployee(@PathVariable("id") Integer id){
         employeeCatalogue.delete(id);
-        return "redirect:/home/";
+        return "redirect:/user/show_employees";
     }
 
     @RequestMapping("/add_employee")
@@ -63,7 +63,7 @@ public class UserController {
         }
         employee.setType(typeVar);
         employeeCatalogue.save(employee);
-        return "redirect:/home/";
+        return "redirect:/user/show_employees";
     }
 
     @RequestMapping("/update_employee/{id}")
@@ -100,7 +100,6 @@ public class UserController {
 
     @RequestMapping("/show_profile")
     public String showProfile(Model model){
-        System.out.println("in show profile");
         Customer customer = ((List<Customer>) customerCatalogue.findAll()).get(0);
         List<ProductOrder> orders = customer.getProductOrders();
         model.addAttribute("customer", customer);
@@ -132,9 +131,8 @@ public class UserController {
     @RequestMapping("/update_profile/{id}")
     public String edieProfile(Model model,
                                      @PathVariable("id") Integer id){
-        Customer customer = customerCatalogue.findOne(id);
-        model.addAttribute("customer", customer);
-        return "update/change_profile";
+        model.addAttribute("customer", customerCatalogue.findOne(id));
+        return "updates/change_profile";
     }
 
     @RequestMapping("/submit/update_profile/{id}")
@@ -149,7 +147,7 @@ public class UserController {
         customer.setFirstName(firstName);
         customer.setLastName(lastName);
         customerCatalogue.save(customer);
-        return "redirect:/home/";
+        return "redirect:/user/show_profile";
     }
 
     @RequestMapping("/login")

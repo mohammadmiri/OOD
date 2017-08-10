@@ -46,20 +46,20 @@
 
 
 <div class="panel panel-default text-bold margin-large-top">
-    <div class="panel-heading text-center">add comment</div>
+    <div class="panel-heading text-center">update components</div>
     <div class="panel-body padding-large-top">
-        <form action="/product/submit/update_component/${component.id}" method="get">
+        <form action="/product/submit/update_component/${components.id}" method="get">
             <div class="form-group">
                 <label>Name:</label>
-                <input type="text" class="form-control" name="name" value="${component.name}">
+                <input type="text" class="form-control" name="name" value="${components.name}">
             </div>
             <div class="form-group">
                 <label>Price:</label>
-                <input type="text" class="form-control" name="price" value="${component.price}">
+                <input type="text" class="form-control" name="price" value="${components.price}">
             </div>
             <div class="form-group">
                 <label>Description:</label>
-                <input type="text" class="form-control" name="description" value="${component.description}">
+                <input type="text" class="form-control" name="description" value="${components.description}">
             </div>
             <button type="submit" class="btn btn-success">submit</button>
         </form>

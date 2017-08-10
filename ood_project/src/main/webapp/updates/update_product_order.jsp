@@ -52,7 +52,7 @@
 
 
 <div class="panel panel-default text-bold margin-large-top">
-    <div class="panel-heading text-center">add comment</div>
+    <div class="panel-heading text-center">update product order</div>
     <div class="panel-body padding-large-top">
         <form action="/product/submit/update_product_order/${order.id}" method="get">
             <div class="form-group">

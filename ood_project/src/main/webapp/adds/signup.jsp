@@ -53,11 +53,11 @@
         <form action="/user/submit/signup" method="get">
             <div class="form-group">
                 <label for="t1">Username:</label>
-                <input type="text" class="form-control" id="t1" name="name">
+                <input type="text" class="form-control" id="t1" name="username">
             </div>
             <div class="form-group">
                 <label>Password:</label>
-                <input type="text" class="form-control"name="price">
+                <input type="text" class="form-control"name="password">
             </div>
             <div class="form-group">
                 <label>FirstName:</label>

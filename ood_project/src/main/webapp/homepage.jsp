@@ -33,7 +33,7 @@
                     <%--<a href="/warehouse/show_warehouses"><button class="btn btn-info col-md-6 col-md-offset-3 item">warehouses</button></a>--%>
                 <%--</div>--%>
                 <%--<div class="row">--%>
-                    <%--<a href="/product/show_component_orders"><button class="btn btn-info col-md-6 col-md-offset-3 item">component orders</button></a>--%>
+                    <%--<a href="/product/show_component_orders"><button class="btn btn-info col-md-6 col-md-offset-3 item">components orders</button></a>--%>
                 <%--</div>--%>
                 <%--<div class="row">--%>
                     <%--<a href="/product/show_product_orders"><button class="btn btn-info col-md-6 col-md-offset-3 item">product orders</button></a>--%>
@@ -61,7 +61,7 @@
                     <%--<a href="/warehouse/show_wahouses"><button class="btn btn-info col-md-6 col-md-offset-3 item">warehouses</button></a>--%>
                 <%--</div>--%>
                 <%--<div class="row">--%>
-                    <%--<a href="/product/show_component_orders"><button class="btn btn-info col-md-6 col-md-offset-3 item">component orders</button></a>--%>
+                    <%--<a href="/product/show_component_orders"><button class="btn btn-info col-md-6 col-md-offset-3 item">components orders</button></a>--%>
                 <%--</div>--%>
             <%--</c:if>--%>
             <%--<c:if test="${role == 'CustomerRelationshipManager'}">--%>

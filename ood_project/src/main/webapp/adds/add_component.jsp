@@ -40,7 +40,7 @@
 
 
 <div class="panel panel-default text-bold margin-large-top">
-    <div class="panel-heading text-center">add comment</div>
+    <div class="panel-heading text-center">add components</div>
     <div class="panel-body padding-large-top">
         <form action="/product/submit/add_component" method="get">
             <div class="form-group">

@@ -50,7 +50,7 @@
 
 
 <div class="panel panel-default text-bold margin-large-top">
-    <div class="panel-heading text-center">add comment</div>
+    <div class="panel-heading text-center">add product order</div>
     <div class="panel-body padding-large-top">
         <form action="/product/submit/add_product_order" method="get">
             <div class="form-group">

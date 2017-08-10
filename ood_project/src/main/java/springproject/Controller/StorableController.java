@@ -37,18 +37,18 @@ public class StorableController {
         return "shows/show_warehouses";
     }
 
-    @RequestMapping("/show_existing_products/{warehouse_id}")
+    @RequestMapping("/show_store_data/{warehouse_id}")
     public String showExistProducts(Model model,
                                     @PathVariable("warehouse_id") Integer id){
         List<StoreData> storeDatas = warehouseCatalogue.findOne(id).getStoreData();
-        model.addAttribute("storeDatas", storeDatas);
-        return "shows/show_existing_products";
+        model.addAttribute("store_data", storeDatas);
+        return "shows/show_warehouse_amount";
     }
 
     @RequestMapping("/delete_warehouse/{id}")
     public String deleteWarehouse(@PathVariable("id") Integer id){
         warehouseCatalogue.delete(id);
-        return "redirect:/home/";
+        return "redirect:/warehouse/show_warehouses";
     }
 
     @RequestMapping("/add_warehouse")
@@ -61,7 +61,7 @@ public class StorableController {
                                          @RequestParam("name") String name){
         Warehouse warehouse = new Warehouse(code, name);
         warehouseCatalogue.save(warehouse);
-        return "redirect:/home/";
+        return "redirect:/warehouse/show_warehouses";
     }
 
     @RequestMapping("/update_warehouse/{id}")
@@ -97,8 +97,9 @@ public class StorableController {
         Warehouse w = s.getWarehouse();
         w.getStoreData().remove(s);
         warehouseCatalogue.save(w);
+        System.out.println("in delete store data");
         storeDataRepository.delete(id);
-        return "redirect:/home/";
+        return "redirect:/warehouse/show_warehouses";
     }
 
     @RequestMapping("/add_store_data/{warehouse_id}")
@@ -123,7 +124,7 @@ public class StorableController {
         storeData.setWarehouse(w);
         storeData.setStorable(productCatalogue.findOne(product_id));
         storeDataRepository.save(storeData);
-        return "redirect:/home/";
+        return "redirect:/warehouse/show_store_data/"+w.getId();
     }
 
     @RequestMapping("/update_store_data/{store_data_id}")
@@ -146,7 +147,7 @@ public class StorableController {
         storeData.setMin(minAmount);
         storeData.setStorable(productCatalogue.findOne(product_id));
         storeDataRepository.save(storeData);
-        return "redirect:/home/";
+        return "redirect:/warehouse/show_warehouses";
     }
 
 }

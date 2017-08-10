@@ -1,5 +1,7 @@
 package springproject.Model;
 
+import org.springframework.data.repository.CrudRepository;
+import springproject.Service.ProductCatalogue;
 import springproject.Service.ProductionStepCatalogue;
 import springproject.Service.SaleChainCatalogue;
 import springproject.Service.SupplyChainCatalogue;
@@ -73,4 +75,13 @@ public class Product extends Storable{
         return this.getName();
     }
 
+    public void deleteSaleChain(SaleChain saleChain, SaleChainCatalogue sc, ProductCatalogue pc){
+        if(this.getDefaultSaleChain() != null && this.getDefaultSaleChain().getId() == saleChain.getId()){
+            this.setDefaultSaleChain(null);
+        }
+        if(this.getSaleChains().contains(saleChain)){
+            this.getSaleChains().remove(saleChain);
+        }
+        pc.save(this);
+    }
 }

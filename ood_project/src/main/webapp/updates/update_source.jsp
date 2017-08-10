@@ -35,7 +35,7 @@
 
 
 <div class="panel panel-default text-bold margin-large-top">
-    <div class="panel-heading text-center">udpate source</div>
+    <div class="panel-heading text-center">update source</div>
     <div class="panel-body padding-large-top">
         <form action="/path/submit/update_source/${source.id}" method="get">
             <div class="form-group">

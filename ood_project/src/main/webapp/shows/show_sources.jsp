@@ -27,6 +27,7 @@
             <thead>
             <tr>
                 <th class="text-center">id</th>
+                <th  class="text-center">name</th>
                 <th  class="text-center">address</th>
                 <th class="text-center"></th>
                 <th class="text-center"></th>
@@ -36,6 +37,7 @@
             <c:forEach items="${sources}" var="item">
                 <tr>
                     <td class="text-center">${item.id}</td>
+                    <td class="text-center">${item.name}</td>
                     <td class="text-center">${item.address}</td>
                     <td class="text-center"><a href="/path/update_source/${item.id}" class="btn btn-primary">update</a></td>
                     <td class="text-center"><a href="/path/delete_source/${item.id}" class="btn btn-danger">delete</a></td>

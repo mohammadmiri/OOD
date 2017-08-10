@@ -28,36 +28,36 @@
 
 
 
-<div class="panel panel-default margin-large-top">
-    <div class="panel-heading text-center text-bold">all existing products</div>
-    <div class="panel-body">
-        <table class="table table-hover table-striped">
-            <thead>
-            <tr>
-                <th class="text-center">id</th>
-                <th  class="text-center">amount</th>
-                <th class="text-center">min amount</th>
-                <th class="text-center">max amount</th>
-                <th class="text-center"></th>
-                <th class="text-center"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${components}" var="item">
-                <tr>
-                    <td class="text-center">${item.id}</td>
-                    <td class="text-center">${item.amount}</td>
-                    <td class="text-center">${item.min}</td>
-                    <td class="text-center">${item.max}</td>
-                    <td class="text-center"><a href="/warehouse/delete_store_data/${item.id}" class="btn btn-primary">update</a></td>
-                    <td class="text-center"><a href="/warehouse/update_store_data/${item.id}" class="btn btn-danger">delete</a></td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
-        <a href="/warehouse/add_store_data/${warehouse_id}" class="btn btn-primary">New</a>
-    </div>
-</div>
+<%--<div class="panel panel-default margin-large-top">--%>
+    <%--<div class="panel-heading text-center text-bold">all existing products</div>--%>
+    <%--<div class="panel-body">--%>
+        <%--<table class="table table-hover table-striped">--%>
+            <%--<thead>--%>
+            <%--<tr>--%>
+                <%--<th class="text-center">id</th>--%>
+                <%--<th  class="text-center">amount</th>--%>
+                <%--<th class="text-center">min amount</th>--%>
+                <%--<th class="text-center">max amount</th>--%>
+                <%--<th class="text-center"></th>--%>
+                <%--<th class="text-center"></th>--%>
+            <%--</tr>--%>
+            <%--</thead>--%>
+            <%--<tbody>--%>
+            <%--<c:forEach items="${components}" var="item">--%>
+                <%--<tr>--%>
+                    <%--<td class="text-center">${item.id}</td>--%>
+                    <%--<td class="text-center">${item.amount}</td>--%>
+                    <%--<td class="text-center">${item.min}</td>--%>
+                    <%--<td class="text-center">${item.max}</td>--%>
+                    <%--<td class="text-center"><a href="/warehouse/delete_store_data/${item.id}" class="btn btn-primary">update</a></td>--%>
+                    <%--<td class="text-center"><a href="/warehouse/update_store_data/${item.id}" class="btn btn-danger">delete</a></td>--%>
+                <%--</tr>--%>
+            <%--</c:forEach>--%>
+            <%--</tbody>--%>
+        <%--</table>--%>
+        <%--<a href="/warehouse/add_store_data/${warehouse_id}" class="btn btn-primary">New</a>--%>
+    <%--</div>--%>
+<%--</div>--%>
 
 
 

@@ -1,5 +1,8 @@
 package springproject.Model;
 
+import springproject.Service.ComponentCatalogue;
+import springproject.Service.SaleChainCatalogue;
+
 import javax.persistence.Entity;
 
 /**
@@ -17,5 +20,15 @@ public class Component extends Storable{
 
     public String toString(){
         return this.getName();
+    }
+
+    public void deleteSaleChain(SaleChain saleChain, SaleChainCatalogue sc, ComponentCatalogue cc){
+        if(this.getDefaultSaleChain() != null && this.getDefaultSaleChain().getId() == saleChain.getId()){
+            this.setDefaultSaleChain(null);
+        }
+        if(this.getSaleChains().contains(saleChain)){
+            this.getSaleChains().remove(saleChain);
+        }
+        cc.save(this);
     }
 }

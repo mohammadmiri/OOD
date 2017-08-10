@@ -28,12 +28,6 @@ public class ProductController {
     @Autowired
     CommentCatalogue commentCatalogue;
 
-    @RequestMapping("/add_comment/{product_id}")
-    public String addFormComment(@PathVariable("product_id") Integer product_id, Model model){
-        model.addAttribute("product_id", product_id);
-        return "forms/AddFormComment";
-    }
-
     @RequestMapping("/submit/add_comment/{product_id}")
     public String submitAddFormComment(@PathVariable("product_id") Integer product_id,
                                        @RequestParam("message") String message){
@@ -42,7 +36,7 @@ public class ProductController {
         commentCatalogue.save(comment);
         product.getComments().add(comment);
         productCatalogue.save(product);
-        return "redirect:/home/";
+        return "redirect:/product/show_one_product/"+product.getId();
     }
 
     @RequestMapping("/update_comment/{id}")
@@ -85,7 +79,7 @@ public class ProductController {
     @RequestMapping("/delete_product/{id}")
     public String deleteProduct(@PathVariable("id") Integer id){
         productCatalogue.delete(id);
-        return "redirect:/home/";
+        return "redirect:/product/show_products";
     }
 
     @RequestMapping("/add_product")
@@ -115,7 +109,7 @@ public class ProductController {
         product.addSaleChains(saleChains, saleChainCatalogue);
         product.addSupplyChains(supplyChains, supplyChainCatalogue);
         productCatalogue.save(product);
-        return "redirect:/home/";
+        return "redirect:/product/show_products";
     }
 
     @RequestMapping("/update_product/{id}")
@@ -155,12 +149,13 @@ public class ProductController {
         return "redirect:/product/show_products";
     }
 
-    @RequestMapping("/advanceSearch")
-    public String advanceSearchProducts(){
-        return "forms/AdvanceSearchProductsForm";
+    @RequestMapping("/advance_search")
+    public String advanceSearchProducts(Model model){
+        model.addAttribute("products", new ArrayList<Product>());
+        return "search_advance_products";
     }
 
-    @RequestMapping("/submit/advanceSearch")
+    @RequestMapping("/submit/advance_search")
     public String submitAdvanceSearchProduct(@RequestParam("productName") String productName, Model model){
         List<Product> products = (List<Product>) productCatalogue.findAll();
         List<Product> relatedProducts = new ArrayList<>();
@@ -173,13 +168,12 @@ public class ProductController {
         }
         System.out.println("searched product:"+searchedProduct);
         for(Product product:products){
-            if(searchedProduct != null && product.getPrice() == searchedProduct.getPrice()){
+            if(searchedProduct != null && Math.abs(product.getPrice() - searchedProduct.getPrice()) <= 10){
                 relatedProducts.add(product);
             }
         }
         model.addAttribute("products", relatedProducts);
-        System.out.println("length:"+relatedProducts.size());
-        return "ShowAdvanceSearchResult";
+        return "search_advance_products";
     }
 
 
@@ -187,6 +181,12 @@ public class ProductController {
 
     @Autowired
     ProductionStepCatalogue productionStepCatalogue;
+
+    @RequestMapping("/show_production_steps")
+    public String showProductionSteps(Model model){
+        model.addAttribute("productionSteps", productionStepCatalogue.findAll());
+        return "shows/show_production_steps";
+    }
 
     @RequestMapping("/add_production_step")
     public String addFormProductionStep(){
@@ -199,7 +199,7 @@ public class ProductController {
                                               @RequestParam("postCondition") String postCondition){
         ProductionStep productionStep = new ProductionStep(cost, preCondition, postCondition);
         productionStepCatalogue.save(productionStep);
-        return "redirect:/home/";
+        return "redirect:/product/show_products";
     }
 
     @RequestMapping("/update_production_step/{id}")
@@ -218,7 +218,7 @@ public class ProductController {
         productionStep.setPreCondition(preCondition);
         productionStep.setPostCondition(postCondition);
         productionStepCatalogue.save(productionStep);
-        return "redirect:/home/";
+        return "redirect:/product/show_products/";
     }
 
     /*** component ***/
@@ -237,7 +237,7 @@ public class ProductController {
     @RequestMapping("/delete_component/{id}")
     public String deleteComponent(@PathVariable("id") Integer id){
         componentCatalogue.delete(id);
-        return "redirect:/home/";
+        return "redirect:/product/show_components";
     }
 
     @RequestMapping("/add_component")
@@ -251,7 +251,7 @@ public class ProductController {
                                          @RequestParam("description") String description){
         Component component = new Component(name, price, description);
         componentCatalogue.save(component);
-        return "redirect:/home/";
+        return "redirect:/product/show_components";
     }
 
     @RequestMapping("/update_component/{id}")
@@ -303,17 +303,20 @@ public class ProductController {
 
 
     @RequestMapping("/submit/add_product_order")
-    public String submitAddFormProductOrder(@RequestParam("totalCost") Integer totalCost,
-                                         @RequestParam("date") String date,
+    public String submitAddFormProductOrder(@RequestParam("date") String date,
                                          @RequestParam("products") int[] products,
                                          @RequestParam("requirements") String requirement){
+        int totalCost = 0;
+        for(int i:products){
+            totalCost += productCatalogue.findOne(i).getPrice();
+        }
         ProductOrder order = new ProductOrder(totalCost, new Date());
         order.addProducts(products, productCatalogue);
         order.setRequirements(requirement);
-        Customer customer = customerCatalogue.getLoggedInCustomer();
-//        order.setCustomer(customer);
+        Customer customer = ((List<Customer>)customerCatalogue.findAll()).get(0);
+        order.setCustomer(customer);
         productOrderCatalogue.save(order);
-        return "redirect:/home/";
+        return "redirect:/user/show_profile";
     }
 
     @RequestMapping("/update_product_order/{id}")
@@ -359,7 +362,7 @@ public class ProductController {
     @RequestMapping("delete_component_order/{id}")
     public String deleteComponentOrders(@PathVariable("id") Integer id){
         componentOrderCatalogue.delete(id);
-        return "redirect:/home/";
+        return "redirect:/product/show_component_orders";
     }
 
     @RequestMapping("/add_component_order")
@@ -382,7 +385,7 @@ public class ProductController {
         order.setAmount(amount);
         order.setDate(new Date());
         componentOrderCatalogue.save(order);
-        return "redirect:/home/";
+        return "redirect:/product/show_component_orders";
     }
 
     @RequestMapping("/update_component_order/{id}")

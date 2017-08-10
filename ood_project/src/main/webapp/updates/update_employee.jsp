@@ -59,7 +59,7 @@
 
 
 <div class="panel panel-default text-bold margin-large-top">
-    <div class="panel-heading text-center">add employee</div>
+    <div class="panel-heading text-center">update employee</div>
     <div class="panel-body padding-large-top">
         <form action="/user/submit/update_employee/${employee.id}" method="get">
             <div class="form-group">

@@ -53,8 +53,8 @@
             <div class="form-group">
                 <label>Product:</label>
                 <c:set var="list" value="${products}" scope="request"/>
-                <c:set var="input_name" value="products" scope="request"/>
-                <jsp:include page="../select_multiple_html.jsp" />
+                <c:set var="input_name" value="product" scope="request"/>
+                <jsp:include page="../select_html.jsp" />
             </div>
             <div class="form-group">
                 <label>Amount:</label>
