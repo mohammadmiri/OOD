@@ -29,7 +29,7 @@
 
 
 <div class="panel panel-default margin-large-top">
-    <div class="panel-heading text-center text-bold">all products</div>
+    <div class="panel-heading text-center text-bold">advance search</div>
     <div class="panel-body">
         <div class="well">
             <form action="/product/submit/advance_search" class="clearfix">

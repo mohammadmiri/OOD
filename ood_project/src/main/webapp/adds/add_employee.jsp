@@ -57,14 +57,14 @@
 <div class="panel panel-default text-bold margin-large-top">
     <div class="panel-heading text-center">add employee</div>
     <div class="panel-body padding-large-top">
-        <form action="/submit/add_component" method="get">
+        <form action="/user/submit/add_employee" method="get">
             <div class="form-group">
                 <label for="t1">Username:</label>
-                <input type="text" class="form-control" id="t1" name="name">
+                <input type="text" class="form-control" id="t1" name="username">
             </div>
             <div class="form-group">
                 <label>Password:</label>
-                <input type="text" class="form-control"name="price">
+                <input type="text" class="form-control"name="password">
             </div>
             <div class="form-group">
                 <label>FirstName:</label>

@@ -182,14 +182,28 @@ public class ProductController {
     @Autowired
     ProductionStepCatalogue productionStepCatalogue;
 
+    @Autowired
+    EmployeeCatalogue employeeCatalogue;
+
     @RequestMapping("/show_production_steps")
     public String showProductionSteps(Model model){
         model.addAttribute("productionSteps", productionStepCatalogue.findAll());
         return "shows/show_production_steps";
     }
 
-    @RequestMapping("/add_production_step")
-    public String addFormProductionStep(){
+    @RequestMapping("/add_production_steps")
+    public String addFormProductionStep(Model model){
+        List<Component> components = (List<Component>) componentCatalogue.findAll();
+        List<Product> products = (List<Product>) productCatalogue.findAll();
+        List<Storable> storables = new ArrayList<>();
+        for(Product p:products){
+            storables.add(p);
+        }
+        for(Component c:components){
+            storables.add(c);
+        }
+        model.addAttribute("storables", storables);
+        model.addAttribute("employees", employeeCatalogue.findAll());
         return "adds/add_production_step";
     }
 

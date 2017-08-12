@@ -29,14 +29,17 @@ public class ApplicationController {
     public String homepage(Model model){
         String role = null;
         List<Employee> employees = (List<Employee>) employeeCatalogue.findAll();
-        for(Employee employee:employees){
-            if(employee.getLoggedIn() == true){
+        for(Employee employee:employees)
+        {
+            if(employee.getLoggedIn())
                 role = employee.getType().toString();
-            }
         }
-        for(Customer customer:customerCatalogue.findAll()){
-            if(customer.getLoggedIn() == true){
-                role = "customer";
+        if (role == null)
+        {
+            for (Customer customer : customerCatalogue.findAll())
+            {
+                if (customer.getLoggedIn())
+                    role = "customer";
             }
         }
         model.addAttribute("role", role);

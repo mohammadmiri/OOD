@@ -28,4 +28,8 @@ public class Employee extends UserEntity {
     public void setType(Type type) {
         this.type = type;
     }
+
+    public String toString(){
+        return this.getUsername();
+    }
 }

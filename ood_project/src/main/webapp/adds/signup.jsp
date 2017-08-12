@@ -67,10 +67,6 @@
                 <label>LastName:</label>
                 <input type="text" class="form-control" name="lastName">
             </div>
-            <div class="form-group">
-                <label>Role:</label>
-                <input type="text" class="form-control" name="role">
-            </div>
             <button type="submit" class="btn btn-success">submit</button>
         </form>
     </div>

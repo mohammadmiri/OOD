@@ -53,6 +53,7 @@
             <thead>
             <tr>
                 <th class="text-center">id</th>
+                <th class="text-center">product</th>
                 <th  class="text-center">amount</th>
                 <th class="text-center">min amount</th>
                 <th class="text-center">max amount</th>
@@ -64,6 +65,7 @@
             <c:forEach items="${store_data}" var="item">
                 <tr>
                     <td class="text-center">${item.id}</td>
+                    <td class="text-center">${item.getStorable().toString()}</td>
                     <td class="text-center">${item.amount}</td>
                     <td class="text-center">${item.min}</td>
                     <td class="text-center">${item.max}</td>
